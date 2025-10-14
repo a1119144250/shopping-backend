@@ -20,6 +20,14 @@
         <result property="realName" column="REAL_NAME" typeHandler="com.xiaowang.shopping.user.infrastructure.mapper.AesEncryptTypeHandler"/>
         <result property="idCardNo" column="ID_CARD_NO" typeHandler="com.xiaowang.shopping.user.infrastructure.mapper.AesEncryptTypeHandler"/>
         <result property="userRole" column="USER_ROLE"/>
+        <result property="openId" column="OPEN_ID"/>
+        <result property="gender" column="GENDER"/>
+        <result property="city" column="CITY"/>
+        <result property="province" column="PROVINCE"/>
+        <result property="country" column="COUNTRY"/>
+        <result property="points" column="POINTS"/>
+        <result property="coupons" column="COUPONS"/>
+        <result property="balance" column="BALANCE"/>
         <result property="deleted" column="DELETED"/>
         <result property="lockVersion" column="LOCK_VERSION"/>
     </resultMap>
@@ -44,5 +52,9 @@
     <select id="findByTelephoneAndPass" resultMap="BaseResultMap">select * from users where deleted=0
         <if test="telephone!=null">AND telephone = #{telephone}</if>
         <if test="passwordHash!=null">AND password_hash = #{passwordHash}</if>
+    </select>
+
+    <select id="findByOpenId" resultMap="BaseResultMap">select * from users where deleted=0
+        <if test="openId!=null">AND open_id = #{openId}</if>
     </select>
 </mapper>

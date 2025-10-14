@@ -7,6 +7,10 @@ spring:
   config:
     import: classpath:base.yml,classpath:datasource.yml,classpath:cache.yml,classpath:rpc.yml
 
+# 微信小程序配置
+wx:
+  appid: wxb64070a3b9094292
+  secret: 3588d246ca50103f13f13363abd2511c
 
 #dubbo:
 #  protocol:
