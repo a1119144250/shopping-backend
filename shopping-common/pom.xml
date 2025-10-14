@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xiaowang</groupId>
+        <artifactId>shopping</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>shopping-common</artifactId>
+
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>shopping-base</module>
+        <module>shopping-api</module>
+        <module>shopping-lock</module>
+        <module>shopping-limiter</module>
+        <module>shopping-web</module>
+        <module>shopping-datasource</module>
+        <module>shopping-rpc</module>
+        <module>shopping-cache</module>
+        <module>shopping-file</module>
+        <module>shopping-sms</module>
+        <module>shopping-job</module>
+        <module>shopping-config</module>
+        <module>shopping-sa-token</module>
+        <module>shopping-mq</module>
+        <module>shopping-es</module>
+        <module>shopping-seata</module>
+        <module>shopping-prometheus</module>
+        <module>shopping-tcc</module>
+        <module>shopping-skywalking</module>
+    </modules>
+
+</project>

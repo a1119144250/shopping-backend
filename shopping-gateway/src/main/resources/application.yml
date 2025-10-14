@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: @application.name@
+  # config:
+    # import: classpath:base.yml,classpath:cache.yml,classpath:config.yml,classpath:limiter.yml  # 临时注释掉
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedHeaders: '*'
+            allowedMethods: '*'
+            allowedOrigins: '*'
+      routes:
+        - id: shopping-auth
+          uri: lb://shopping-auth
+          predicates:
+            - Path=/auth/**,/token/**
+        - id: shopping-business
+          uri: lb://shopping-business
+          predicates:
+            - Path=/trade/**,/order/**,/user/**,/collection/**,/wxPay/**,/box/**

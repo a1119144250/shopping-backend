@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.xiaowang</groupId>
+        <artifactId>shopping-business</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>shopping-app</artifactId>
+    <name>shopping-app</name>
+    <description>cola-app</description>
+    
+    <properties>
+        <application.name>cola-business</application.name>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-tcc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-user</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-seata</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-prometheus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-skywalking</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-es</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-mq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.xiaowang</groupId>
+            <artifactId>shopping-job</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
