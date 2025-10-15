@@ -15,182 +15,205 @@ import java.util.Date;
 
 /**
  * 用户
- *
  * @author cola
  */
 @Setter
 @Getter
 @TableName("users")
 public class User extends BaseEntity {
-  /**
-   * 昵称
-   */
-  private String nickName;
+    /**
+     * 昵称
+     */
+    private String nickName;
 
-  /**
-   * 密码
-   */
-  private String passwordHash;
+    /**
+     * 密码
+     */
+    private String passwordHash;
 
-  /**
-   * 状态
-   */
-  private UserStateEnum state;
+    /**
+     * 邮箱
+     */
+    private String email;
 
-  /**
-   * 邀请码
-   */
-  private String inviteCode;
+    /**
+     * 状态
+     */
+    private UserStateEnum state;
 
-  /**
-   * 邀请人用户ID
-   */
-  private String inviterId;
+    /**
+     * 邀请码
+     */
+    private String inviteCode;
 
-  /**
-   * 手机号
-   */
-  @SensitiveStrategyPhone
-  private String telephone;
+    /**
+     * 邀请人用户ID
+     */
+    private String inviterId;
 
-  /**
-   * 最后登录时间
-   */
-  private Date lastLoginTime;
+    /**
+     * 手机号
+     */
+    @SensitiveStrategyPhone
+    private String telephone;
 
-  /**
-   * 头像地址
-   */
-  private String profilePhotoUrl;
+    /**
+     * 最后登录时间
+     */
+    private Date lastLoginTime;
 
-  /**
-   * 区块链地址
-   */
-  private String blockChainUrl;
+    /**
+     * 头像地址
+     */
+    private String profilePhotoUrl;
 
-  /**
-   * 区块链平台
-   */
-  private String blockChainPlatform;
+    /**
+     * 区块链地址
+     */
+    private String blockChainUrl;
 
-  /**
-   * 实名认证
-   */
-  private Boolean certification;
+    /**
+     * 区块链平台
+     */
+    private String blockChainPlatform;
 
-  /**
-   * 真实姓名
-   */
-  @TableField(typeHandler = AesEncryptTypeHandler.class)
-  private String realName;
+    /**
+     * 实名认证
+     */
+    private Boolean certification;
 
-  /**
-   * 身份证hash
-   */
-  @TableField(typeHandler = AesEncryptTypeHandler.class)
-  private String idCardNo;
+    /**
+     * 真实姓名
+     */
+    @TableField(typeHandler = AesEncryptTypeHandler.class)
+    private String realName;
 
-  /**
-   * 用户角色
-   */
-  private UserRole userRole;
+    /**
+     * 身份证hash
+     */
+    @TableField(typeHandler = AesEncryptTypeHandler.class)
+    private String idCardNo;
 
-  /**
-   * 微信openId
-   */
-  private String openId;
+    /**
+     * 用户角色
+     */
+    private UserRole userRole;
 
-  /**
-   * 性别 (0-未知，1-男，2-女)
-   */
-  private Integer gender;
+    /**
+     * 微信openId
+     */
+    private String openId;
 
-  /**
-   * 城市
-   */
-  private String city;
+    /**
+     * 性别 (0-未知，1-男，2-女)
+     */
+    private Integer gender;
 
-  /**
-   * 省份
-   */
-  private String province;
+    /**
+     * 城市
+     */
+    private String city;
 
-  /**
-   * 国家
-   */
-  private String country;
+    /**
+     * 省份
+     */
+    private String province;
 
-  /**
-   * 积分
-   */
-  private Integer points;
+    /**
+     * 国家
+     */
+    private String country;
 
-  /**
-   * 优惠券数量
-   */
-  private Integer coupons;
+    /**
+     * 积分
+     */
+    private Integer points;
 
-  /**
-   * 余额
-   */
-  private Double balance;
+    /**
+     * 优惠券数量
+     */
+    private Integer coupons;
 
-  public User register(String telephone, String nickName, String password, String inviteCode, String inviterId) {
-    this.setTelephone(telephone);
-    this.setNickName(nickName);
-    this.setPasswordHash(DigestUtil.md5Hex(password));
-    this.setState(UserStateEnum.INIT);
-    this.setUserRole(UserRole.CUSTOMER);
-    this.setInviteCode(inviteCode);
-    this.setInviterId(inviterId);
-    return this;
-  }
+    /**
+     * 余额
+     */
+    private Double balance;
 
-  public User registerAdmin(String telephone, String nickName, String password) {
-    this.setTelephone(telephone);
-    this.setNickName(nickName);
-    this.setPasswordHash(DigestUtil.md5Hex(password));
-    this.setState(UserStateEnum.ACTIVE);
-    this.setUserRole(UserRole.ADMIN);
-    return this;
-  }
+    public User register(String telephone, String nickName, String password, String inviteCode, String inviterId) {
+        this.setTelephone(telephone);
+        this.setNickName(nickName);
+        this.setPasswordHash(DigestUtil.md5Hex(password));
+        this.setState(UserStateEnum.INIT);
+        this.setUserRole(UserRole.CUSTOMER);
+        this.setInviteCode(inviteCode);
+        this.setInviterId(inviterId);
 
-  public User auth(String realName, String idCard) {
-    this.setRealName(realName);
-    this.setIdCardNo(idCard);
-    this.setCertification(true);
-    this.setState(UserStateEnum.AUTH);
-    return this;
-  }
+        // 显式设置时间字段，防止自动填充失效
+        Date now = new Date();
+        this.setGmtCreate(now);
+        this.setGmtModified(now);
 
-  public User active(String blockChainUrl, String blockChainPlatform) {
-    this.setBlockChainUrl(blockChainUrl);
-    this.setBlockChainPlatform(blockChainPlatform);
-    this.setState(UserStateEnum.ACTIVE);
-    return this;
-  }
+        return this;
+    }
 
-  public boolean canModifyInfo() {
-    return state == UserStateEnum.INIT || state == UserStateEnum.AUTH || state == UserStateEnum.ACTIVE;
-  }
+    public User registerAdmin(String telephone, String nickName, String password) {
+        this.setTelephone(telephone);
+        this.setNickName(nickName);
+        this.setPasswordHash(DigestUtil.md5Hex(password));
+        this.setState(UserStateEnum.ACTIVE);
+        this.setUserRole(UserRole.ADMIN);
 
-  /**
-   * 微信登录/注册
-   */
-  public User wxLogin(String openId, String nickName, String avatarUrl, Integer gender, String city, String province,
-      String country) {
-    this.setOpenId(openId);
-    this.setNickName(nickName);
-    this.setProfilePhotoUrl(avatarUrl);
-    this.setGender(gender);
-    this.setCity(city);
-    this.setProvince(province);
-    this.setCountry(country);
-    this.setState(UserStateEnum.ACTIVE);
-    this.setUserRole(UserRole.CUSTOMER);
-    this.setPoints(0);
-    this.setCoupons(0);
-    this.setBalance(0.0);
-    return this;
-  }
+        // 显式设置时间字段，防止自动填充失效
+        Date now = new Date();
+        this.setGmtCreate(now);
+        this.setGmtModified(now);
+
+        return this;
+    }
+
+    public User auth(String realName, String idCard) {
+        this.setRealName(realName);
+        this.setIdCardNo(idCard);
+        this.setCertification(true);
+        this.setState(UserStateEnum.AUTH);
+        return this;
+    }
+
+    public User active(String blockChainUrl, String blockChainPlatform) {
+        this.setBlockChainUrl(blockChainUrl);
+        this.setBlockChainPlatform(blockChainPlatform);
+        this.setState(UserStateEnum.ACTIVE);
+        return this;
+    }
+
+    public boolean canModifyInfo() {
+        return state == UserStateEnum.INIT || state == UserStateEnum.AUTH || state == UserStateEnum.ACTIVE;
+    }
+
+    /**
+     * 微信登录/注册
+     */
+    public User wxLogin(String openId, String nickName, String avatarUrl, Integer gender, String city, String province,
+                        String country) {
+        this.setOpenId(openId);
+        this.setNickName(nickName);
+        this.setProfilePhotoUrl(avatarUrl);
+        this.setGender(gender);
+        this.setCity(city);
+        this.setProvince(province);
+        this.setCountry(country);
+        this.setState(UserStateEnum.ACTIVE);
+        this.setUserRole(UserRole.CUSTOMER);
+        this.setPoints(0);
+        this.setCoupons(0);
+        this.setBalance(0.0);
+
+        // 显式设置时间字段，防止自动填充失效
+        Date now = new Date();
+        this.setGmtCreate(now);
+        this.setGmtModified(now);
+        this.setLastLoginTime(now);
+
+        return this;
+    }
 }

@@ -1,0 +1,13 @@
+# 基础配置（网关专用）
+cola:
+  nacos:
+    server:
+      url: 127.0.0.1:8848
+  mysql:
+    url: jdbc:mysql://127.0.0.1:3306/shopping
+    username: root
+    password: wangjin521
+  redis:
+    url: 127.0.0.1
+    port: 6379
+    password:

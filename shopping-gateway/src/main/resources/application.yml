@@ -4,8 +4,8 @@ server:
 spring:
   application:
     name: @application.name@
-  # config:
-    # import: classpath:base.yml,classpath:cache.yml,classpath:config.yml,classpath:limiter.yml  # 临时注释掉
+  config:
+    import: classpath:base.yml,classpath:cache.yml,classpath:sa-token.yml,classpath:config.yml
   cloud:
     gateway:
       default-filters:
@@ -21,7 +21,7 @@ spring:
           uri: lb://shopping-auth
           predicates:
             - Path=/auth/**,/token/**
-        - id: shopping-business
-          uri: lb://shopping-business
+        - id: shopping-user
+          uri: lb://shopping-user
           predicates:
             - Path=/trade/**,/order/**,/user/**,/collection/**,/wxPay/**,/box/**

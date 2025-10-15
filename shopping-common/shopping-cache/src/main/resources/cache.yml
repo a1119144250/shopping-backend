@@ -5,7 +5,7 @@ spring:
       port: ${cola.redis.port}
       password: ${cola.redis.password}
       ssl:
-        enabled: true
+        enabled: false
   redis:
     redisson:
       config: |

@@ -35,6 +35,8 @@ public class WxLoginService {
    * @return openId
    */
   public String getOpenId(String code) {
+    log.info("开始微信登录，code前6位: {}...", code != null && code.length() > 6 ? code.substring(0, 6) : "null");
+
     String url = String.format(
         "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
         appId, appSecret, code);
@@ -56,8 +58,9 @@ public class WxLoginService {
           Integer errcode = jsonObject.getInt("errcode");
           if (errcode != 0) {
             String errmsg = jsonObject.getStr("errmsg");
-            log.error("微信登录失败: errcode={}, errmsg={}", errcode, errmsg);
-            throw new RuntimeException("微信登录失败: " + errmsg);
+            log.error("微信登录失败: errcode={}, errmsg={}, code前6位: {}...",
+                errcode, errmsg, code != null && code.length() > 6 ? code.substring(0, 6) : "null");
+            throw new RuntimeException("微信登录失败: " + errmsg + ", rid: " + jsonObject.getStr("rid"));
           }
         }
 
@@ -67,9 +70,10 @@ public class WxLoginService {
           throw new RuntimeException("获取openId失败");
         }
 
+        log.info("微信登录成功，openId: {}...", openId.substring(0, 8));
         return openId;
       } else {
-        log.error("请求微信接口失败: {}", response.code());
+        log.error("请求微信接口失败，HTTP状态码: {}", response.code());
         throw new RuntimeException("请求微信接口失败");
       }
     } catch (IOException e) {

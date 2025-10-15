@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.xiaowang.shopping.user.domain.entity.User;
 import jakarta.validation.constraints.NotNull;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * user mapper
@@ -27,7 +28,7 @@ public interface UserMapper extends BaseMapper<User> {
    * @param nickname
    * @return
    */
-  User findByNickname(@NotNull String nickname);
+  User findByNickname(@Param("nickName") @NotNull String nickname);
 
   /**
    * 根据邀请码查询用户

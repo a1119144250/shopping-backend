@@ -5,12 +5,18 @@ spring:
   application:
     name: @application.name@
   config:
-    import: classpath:base.yml,classpath:datasource.yml,classpath:cache.yml,classpath:rpc.yml
+    import: classpath:base.yml,classpath:datasource.yml,classpath:cache.yml,classpath:rpc.yml,classpath:sa-token.yml
 
 # 微信小程序配置
 wx:
   appid: wxb64070a3b9094292
   secret: 3588d246ca50103f13f13363abd2511c
+
+# MyBatis Plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql日志
+    map-underscore-to-camel-case: true # 将数据库字段的下划线命名转换为驼峰命名
 
 #dubbo:
 #  protocol:

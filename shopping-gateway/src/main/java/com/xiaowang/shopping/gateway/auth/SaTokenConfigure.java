@@ -33,7 +33,8 @@ public class SaTokenConfigure {
         .setAuth(obj -> {
           // 登录校验 -- 拦截所有路由，并排除/auth/login 用于开放登录
           SaRouter.match("/**")
-              .notMatch("/auth/**", "/collection/collectionList", "/collection/collectionInfo", "/wxPay/**")
+              .notMatch("/auth/**", "/user/login", "/user/register", "/collection/collectionList",
+                  "/collection/collectionInfo", "/wxPay/**")
               .check(r -> StpUtil.checkLogin());
 
           // 权限认证 -- 不同模块, 校验不同权限

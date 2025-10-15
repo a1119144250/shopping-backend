@@ -37,8 +37,10 @@
         <if test="id!=null">AND id = #{id}</if>
     </select>
 
-    <select id="findByNickname" resultMap="BaseResultMap">select * from users where deleted=0
-        <if test="nickName!=null">AND nick_name = #{nickName}</if>
+    <select id="findByNickname" resultMap="BaseResultMap">
+        SELECT * FROM users 
+        WHERE deleted = 0 
+        AND nick_name = #{nickName}
     </select>
 
     <select id="findByInviteCode" resultMap="BaseResultMap">select * from users where deleted=0

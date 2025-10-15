@@ -1,0 +1,9 @@
+# Redis配置（网关专用）
+spring:
+  data:
+    redis:
+      host: ${cola.redis.url:127.0.0.1}
+      port: ${cola.redis.port:6379}
+      password: ${cola.redis.password:}
+      ssl:
+        enabled: false
