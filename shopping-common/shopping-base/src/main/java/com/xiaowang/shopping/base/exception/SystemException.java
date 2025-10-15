@@ -2,7 +2,6 @@ package com.xiaowang.shopping.base.exception;
 
 /**
  * 系统异常
- *
  * @author cola
  */
 public class SystemException extends RuntimeException {
@@ -29,7 +28,8 @@ public class SystemException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public SystemException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, ErrorCode errorCode) {
+    public SystemException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace,
+                           ErrorCode errorCode) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errorCode = errorCode;
     }

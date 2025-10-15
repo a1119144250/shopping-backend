@@ -58,7 +58,6 @@ public class XxlJobProperties {
         this.appName = appName;
     }
 
-
     public String getIp() {
         return ip;
     }

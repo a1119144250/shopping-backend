@@ -25,7 +25,6 @@ public class WebConfiguration implements WebMvcConfigurer {
 
     /**
      * 注册token过滤器
-     *
      * @param redissonClient
      * @return
      */
@@ -34,7 +33,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         FilterRegistrationBean<TokenFilter> registrationBean = new FilterRegistrationBean<>();
 
         registrationBean.setFilter(new TokenFilter(redissonClient));
-        registrationBean.addUrlPatterns("/trade/buy","/trade/newBuy","/trade/normalBuy");
+        registrationBean.addUrlPatterns("/trade/buy", "/trade/newBuy", "/trade/normalBuy");
         registrationBean.setOrder(10);
 
         return registrationBean;

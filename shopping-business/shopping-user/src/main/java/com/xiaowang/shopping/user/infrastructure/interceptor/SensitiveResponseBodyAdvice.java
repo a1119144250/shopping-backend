@@ -16,7 +16,6 @@ import java.util.Collection;
 
 /**
  * 脱敏响应体处理
- *
  * @author cola
  */
 @ControllerAdvice
@@ -29,25 +28,27 @@ public class SensitiveResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<?
+            extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+                                  ServerHttpResponse response) {
         // 如果返回的对象是UserInfo/InviteRankInfo，进行脱敏处理
         if (body != null && body instanceof Result) {
 
-            if (((Result<?>) body).getData() == null) {
+            if (((Result<?>)body).getData() == null) {
                 return body;
             }
 
-            if (((Result<?>) body).getData() instanceof Collection<?>) {
-                ((Result<Collection>) body).setData(SensitiveUtil.desCopyCollection((Collection) ((Result<?>) body).getData()));
+            if (((Result<?>)body).getData() instanceof Collection<?>) {
+                ((Result<Collection>)body).setData(SensitiveUtil.desCopyCollection((Collection)((Result<?>)body).getData()));
                 return body;
             }
 
-            switch (((Result<?>) body).getData()) {
+            switch (((Result<?>)body).getData()) {
                 case UserInfo userInfo:
-                    ((Result<UserInfo>) body).setData(SensitiveUtil.desCopy(userInfo));
+                    ((Result<UserInfo>)body).setData(SensitiveUtil.desCopy(userInfo));
                     return body;
                 case InviteRankInfo inviteRankInfo:
-                    ((Result<InviteRankInfo>) body).setData(SensitiveUtil.desCopy(inviteRankInfo));
+                    ((Result<InviteRankInfo>)body).setData(SensitiveUtil.desCopy(inviteRankInfo));
                     return body;
                 default:
                     return body;

@@ -437,6 +437,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
 
         // 创建用户
         User user = new User();
+        user.setUserName(username);
         user.setNickName(username);
         user.setPasswordHash(DigestUtil.md5Hex(password));
         user.setState(UserStateEnum.ACTIVE);

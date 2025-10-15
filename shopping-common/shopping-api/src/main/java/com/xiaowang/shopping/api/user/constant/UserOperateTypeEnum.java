@@ -34,6 +34,5 @@ public enum UserOperateTypeEnum {
     /**
      * 修改信息
      */
-    MODIFY
-    ;
+    MODIFY;
 }

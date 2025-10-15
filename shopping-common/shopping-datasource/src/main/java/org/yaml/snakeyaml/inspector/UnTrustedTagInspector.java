@@ -24,7 +24,6 @@ public final class UnTrustedTagInspector implements TagInspector {
 
     /**
      * Allow none
-     *
      * @param tag - the global tag to reject
      * @return always return false
      */

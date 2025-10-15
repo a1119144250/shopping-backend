@@ -1,12 +1,10 @@
 package com.xiaowang.shopping.user.infrastructure.exception;
 
-
 import com.xiaowang.shopping.base.exception.BizException;
 import com.xiaowang.shopping.base.exception.ErrorCode;
 
 /**
  * 用户异常
- *
  * @author cola
  */
 public class UserException extends BizException {
@@ -27,7 +25,8 @@ public class UserException extends BizException {
         super(cause, errorCode);
     }
 
-    public UserException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, ErrorCode errorCode) {
+    public UserException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace,
+                         ErrorCode errorCode) {
         super(message, cause, enableSuppression, writableStackTrace, errorCode);
     }
 

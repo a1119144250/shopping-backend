@@ -26,7 +26,6 @@ import java.util.Map;
 
 /**
  * 为了解决在Seata+ShardingJDBC场景下，事务失效的问题
- *
  * @author cola
  */
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
@@ -50,10 +49,12 @@ public class SeataATShardingSphereTransactionManager implements ShardingSphereTr
     }
 
     @Override
-    public void init(final DatabaseType databaseType, final Collection<ResourceDataSource> resourceDataSources, final String providerType) {
+    public void init(final DatabaseType databaseType, final Collection<ResourceDataSource> resourceDataSources,
+                     final String providerType) {
         if (enableSeataAT) {
             initSeataRPCClient();
-            resourceDataSources.forEach(each -> dataSourceMap.put(each.getOriginalName(), new DataSourceProxy(each.getDataSource())));
+            resourceDataSources.forEach(each -> dataSourceMap.put(each.getOriginalName(),
+                                                                  new DataSourceProxy(each.getDataSource())));
         }
     }
 
@@ -73,7 +74,7 @@ public class SeataATShardingSphereTransactionManager implements ShardingSphereTr
     @Override
     public boolean isInTransaction() {
         Preconditions.checkState(enableSeataAT, "sharding seata-at transaction has been disabled.");
-        //return null != RootContext.getXID();
+        // return null != RootContext.getXID();
         return null != SeataTransactionHolder.get();
     }
 

@@ -121,6 +121,7 @@ public class UserController {
             userInfoVO.setId(user.getId());
             userInfoVO.setOpenId(user.getOpenId());
             userInfoVO.setNickName(user.getNickName());
+            userInfoVO.setUserName(user.getUserName());
             userInfoVO.setAvatarUrl(user.getProfilePhotoUrl());
             userInfoVO.setPhone(user.getTelephone());
             userInfoVO.setPoints(user.getPoints());
@@ -156,6 +157,7 @@ public class UserController {
             UserProfileVO profileVO = new UserProfileVO();
             profileVO.setId(user.getId());
             profileVO.setNickName(user.getNickName());
+            profileVO.setUserName(user.getUserName());
             profileVO.setAvatarUrl(user.getProfilePhotoUrl());
             profileVO.setPhone(user.getTelephone());
             profileVO.setPoints(user.getPoints());

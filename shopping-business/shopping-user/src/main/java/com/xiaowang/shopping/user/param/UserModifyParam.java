@@ -5,7 +5,6 @@ import lombok.Setter;
 
 /**
  * 用户修改参数
- *
  * @author cola
  */
 @Setter

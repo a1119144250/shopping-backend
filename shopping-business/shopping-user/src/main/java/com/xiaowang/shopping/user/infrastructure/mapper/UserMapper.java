@@ -8,58 +8,51 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * user mapper
- * 
  * @author cola
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-  /**
-   * 根据id查询用户
-   *
-   * @param id
-   * @return
-   */
-  User findById(long id);
+    /**
+     * 根据id查询用户
+     * @param id
+     * @return
+     */
+    User findById(long id);
 
-  /**
-   * 根据昵称查询用户
-   *
-   * @param nickname
-   * @return
-   */
-  User findByNickname(@Param("nickName") @NotNull String nickname);
+    /**
+     * 根据昵称查询用户
+     * @param nickname
+     * @return
+     */
+    User findByNickname(@Param("nickName") @NotNull String nickname);
 
-  /**
-   * 根据邀请码查询用户
-   * 
-   * @param inviteCode
-   * @return
-   */
-  User findByInviteCode(@NotNull String inviteCode);
+    /**
+     * 根据邀请码查询用户
+     * @param inviteCode
+     * @return
+     */
+    User findByInviteCode(@NotNull String inviteCode);
 
-  /**
-   * 根据手机号查询用户
-   *
-   * @param telephone
-   * @return
-   */
-  User findByTelephone(@NotNull String telephone);
+    /**
+     * 根据手机号查询用户
+     * @param telephone
+     * @return
+     */
+    User findByTelephone(@NotNull String telephone);
 
-  /**
-   * 根据昵称和密码查询用户
-   *
-   * @param telephone
-   * @param passwordHash
-   * @return
-   */
-  User findByTelephoneAndPass(String telephone, String passwordHash);
+    /**
+     * 根据昵称和密码查询用户
+     * @param telephone
+     * @param passwordHash
+     * @return
+     */
+    User findByTelephoneAndPass(String telephone, String passwordHash);
 
-  /**
-   * 根据openId查询用户
-   *
-   * @param openId 微信openId
-   * @return 用户信息
-   */
-  User findByOpenId(@NotNull String openId);
+    /**
+     * 根据openId查询用户
+     * @param openId 微信openId
+     * @return 用户信息
+     */
+    User findByOpenId(@NotNull String openId);
 }

@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 /**
  * 简单的用户信息，只返回部分字段，避免过多不该返回的信息被返回
- *
  * @author cola
  */
 @Getter

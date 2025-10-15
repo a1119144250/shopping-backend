@@ -6,7 +6,6 @@ import lombok.Setter;
 
 /**
  * 邀请排行信息
- *
  * @author cola
  */
 @Setter

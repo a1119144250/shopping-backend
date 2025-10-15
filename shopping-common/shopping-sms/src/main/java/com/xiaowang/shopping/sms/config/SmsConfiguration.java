@@ -22,7 +22,7 @@ public class SmsConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    @Profile({"default","prod"})
+    @Profile({"default", "prod"})
     public SmsService smsService() {
         SmsServiceImpl smsService = new SmsServiceImpl();
         smsService.setHost(properties.getHost());
@@ -35,7 +35,7 @@ public class SmsConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    @Profile({"dev","test"})
+    @Profile({"dev", "test"})
     public SmsService mockSmsService() {
         MockSmsServiceImpl smsService = new MockSmsServiceImpl();
         return smsService;

@@ -58,7 +58,8 @@ public class TransactionMQProducer extends DefaultMQProducer {
         super(producerGroup, rpcHook, topics);
     }
 
-    public TransactionMQProducer(final String producerGroup, RPCHook rpcHook, boolean enableMsgTrace, final String customizedTraceTopic) {
+    public TransactionMQProducer(final String producerGroup, RPCHook rpcHook, boolean enableMsgTrace,
+                                 final String customizedTraceTopic) {
         super(producerGroup, rpcHook, enableMsgTrace, customizedTraceTopic);
     }
 
@@ -68,7 +69,8 @@ public class TransactionMQProducer extends DefaultMQProducer {
     }
 
     @Deprecated
-    public TransactionMQProducer(final String namespace, final String producerGroup, RPCHook rpcHook, boolean enableMsgTrace, final String customizedTraceTopic) {
+    public TransactionMQProducer(final String namespace, final String producerGroup, RPCHook rpcHook,
+                                 boolean enableMsgTrace, final String customizedTraceTopic) {
         super(namespace, producerGroup, rpcHook, enableMsgTrace, customizedTraceTopic);
     }
 
@@ -85,8 +87,7 @@ public class TransactionMQProducer extends DefaultMQProducer {
     }
 
     @Override
-    public TransactionSendResult sendMessageInTransaction(final Message msg,
-                                                          final Object arg) throws MQClientException {
+    public TransactionSendResult sendMessageInTransaction(final Message msg, final Object arg) throws MQClientException {
         if (null == this.transactionListener) {
             throw new MQClientException("TransactionListener is null", null);
         }

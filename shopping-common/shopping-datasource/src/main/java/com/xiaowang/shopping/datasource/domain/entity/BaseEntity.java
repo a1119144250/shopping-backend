@@ -10,7 +10,6 @@ import java.util.StringJoiner;
 
 /**
  * 通用实体类
- *
  * @author Hollis
  */
 @Setter
@@ -92,10 +91,9 @@ public class BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", BaseEntity.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("deleted=" + deleted)
-                .add("lockVersion=" + lockVersion)
-                .toString();
+        return new StringJoiner(", ", BaseEntity.class.getSimpleName() + "[", "]").add("id=" + id)
+                                                                                  .add("deleted=" + deleted)
+                                                                                  .add("lockVersion=" + lockVersion)
+                                                                                  .toString();
     }
 }

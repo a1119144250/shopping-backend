@@ -2,7 +2,6 @@ package com.xiaowang.shopping.base.exception;
 
 /**
  * 业务异常
- *
  * @author cola
  */
 public class BizException extends RuntimeException {
@@ -29,7 +28,8 @@ public class BizException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
-    public BizException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, ErrorCode errorCode) {
+    public BizException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace,
+                        ErrorCode errorCode) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errorCode = errorCode;
     }

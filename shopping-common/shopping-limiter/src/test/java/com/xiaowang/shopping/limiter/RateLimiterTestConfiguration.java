@@ -25,8 +25,7 @@ public class RateLimiterTestConfiguration {
     @ConditionalOnMissingBean
     RedissonClient redisson() {
         Config config = new Config();
-        config.useSingleServer()
-                .setAddress(redisAddress).setPassword(redisPassword);
+        config.useSingleServer().setAddress(redisAddress).setPassword(redisPassword);
         return Redisson.create(config);
     }
 

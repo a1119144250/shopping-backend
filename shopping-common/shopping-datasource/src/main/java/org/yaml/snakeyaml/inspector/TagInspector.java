@@ -25,7 +25,6 @@ public interface TagInspector {
 
     /**
      * Check
-     *
      * @param tag - the global tag to check
      * @return true when the custom global tag is allowed to create a custom Java instance
      */

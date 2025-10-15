@@ -7,7 +7,6 @@ import java.util.List;
 
 import static com.xiaowang.shopping.base.response.ResponseCode.SUCCESS;
 
-
 /**
  * @author Hollis
  */

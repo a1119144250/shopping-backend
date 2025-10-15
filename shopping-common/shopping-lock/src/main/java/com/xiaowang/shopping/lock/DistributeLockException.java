@@ -2,7 +2,6 @@ package com.xiaowang.shopping.lock;
 
 /**
  * 分布式锁异常
- *
  * @author cola
  */
 public class DistributeLockException extends RuntimeException {
@@ -22,7 +21,8 @@ public class DistributeLockException extends RuntimeException {
         super(cause);
     }
 
-    public DistributeLockException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DistributeLockException(String message, Throwable cause, boolean enableSuppression,
+                                   boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

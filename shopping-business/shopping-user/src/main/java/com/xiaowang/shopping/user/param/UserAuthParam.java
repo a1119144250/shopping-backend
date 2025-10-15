@@ -5,7 +5,6 @@ import lombok.Setter;
 
 /**
  * 用户认证参数
- *
  * @author cola
  */
 @Setter

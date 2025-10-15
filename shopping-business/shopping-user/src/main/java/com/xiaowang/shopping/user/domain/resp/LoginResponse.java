@@ -6,66 +6,70 @@ import java.util.Date;
 
 /**
  * 登录响应
- *
  * @author wangjin
  */
 @Data
 public class LoginResponse {
-  /**
-   * 登录令牌
-   */
-  private String token;
-
-  /**
-   * 用户信息
-   */
-  private UserInfoVO userInfo;
-
-  @Data
-  public static class UserInfoVO {
     /**
-     * 用户ID
+     * 登录令牌
      */
-    private Long id;
+    private String token;
 
     /**
-     * 微信openId
+     * 用户信息
      */
-    private String openId;
+    private UserInfoVO userInfo;
 
-    /**
-     * 昵称
-     */
-    private String nickName;
+    @Data
+    public static class UserInfoVO {
+        /**
+         * 用户ID
+         */
+        private Long id;
 
-    /**
-     * 头像URL
-     */
-    private String avatarUrl;
+        /**
+         * 微信openId
+         */
+        private String openId;
 
-    /**
-     * 手机号
-     */
-    private String phone;
+        /**
+         * 昵称
+         */
+        private String nickName;
 
-    /**
-     * 积分
-     */
-    private Integer points;
+        /**
+         * 账号
+         */
+        private String userName;
 
-    /**
-     * 优惠券数量
-     */
-    private Integer coupons;
+        /**
+         * 头像URL
+         */
+        private String avatarUrl;
 
-    /**
-     * 余额
-     */
-    private Double balance;
+        /**
+         * 手机号
+         */
+        private String phone;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-  }
+        /**
+         * 积分
+         */
+        private Integer points;
+
+        /**
+         * 优惠券数量
+         */
+        private Integer coupons;
+
+        /**
+         * 余额
+         */
+        private Double balance;
+
+        /**
+         * 创建时间
+         */
+        private Date createTime;
+    }
 }

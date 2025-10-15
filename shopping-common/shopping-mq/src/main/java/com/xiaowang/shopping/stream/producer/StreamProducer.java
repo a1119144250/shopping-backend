@@ -31,45 +31,43 @@ public class StreamProducer {
 
     public boolean send(String bingingName, String tag, String msg) {
         // 构建消息对象
-        MessageBody message = new MessageBody()
-                .setIdentifier(UUID.randomUUID().toString())
-                .setBody(msg);
+        MessageBody message = new MessageBody().setIdentifier(UUID.randomUUID().toString()).setBody(msg);
         logger.info("send message : {} , {} , {}", bingingName, tag, JSON.toJSONString(message));
-        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message).setHeader("TAGS", tag)
-                .build());
+        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message)
+                                                                      .setHeader("TAGS", tag)
+                                                                      .build());
         logger.info("send result : {} , {} , {}", bingingName, tag, result);
         return result;
     }
 
     /**
      * 发送延迟消息
-     *
      * @param bingingName
      * @param tag
      * @param msg
-     * @param delayLevel  RocketMQ支持18个级别的延迟时间，分别为1s、5s、10s、30s、1m、2m、3m、4m、5m、6m、7m、8m、9m、10m、20m、30m、1h、2h
+     * @param delayLevel RocketMQ支持18个级别的延迟时间，分别为1s、5s、10s、30s、1m、2m、3m、4m、5m、6m、7m、8m、9m、10m、20m、30m、1h、2h
      * @return
      */
     public boolean send(String bingingName, String tag, String msg, int delayLevel) {
         // 构建消息对象
-        MessageBody message = new MessageBody()
-                .setIdentifier(UUID.randomUUID().toString())
-                .setBody(msg);
+        MessageBody message = new MessageBody().setIdentifier(UUID.randomUUID().toString()).setBody(msg);
         logger.info("send message : {} , {} , {}", bingingName, tag, JSON.toJSONString(message));
-        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message).setHeader("TAGS", tag).setHeader(MessageConst.PROPERTY_DELAY_TIME_LEVEL, delayLevel)
-                .build());
+        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message)
+                                                                      .setHeader("TAGS", tag)
+                                                                      .setHeader(MessageConst.PROPERTY_DELAY_TIME_LEVEL, delayLevel)
+                                                                      .build());
         logger.info("send result : {} , {} , {}", bingingName, tag, result);
         return result;
     }
 
     public boolean send(String bingingName, String tag, String msg, String headerKey, String headerValue) {
         // 构建消息对象
-        MessageBody message = new MessageBody()
-                .setIdentifier(UUID.randomUUID().toString())
-                .setBody(msg);
+        MessageBody message = new MessageBody().setIdentifier(UUID.randomUUID().toString()).setBody(msg);
         logger.info("send message : {} , {}", bingingName, JSON.toJSONString(message));
-        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message).setHeader("TAGS", tag).setHeader(headerKey, headerValue)
-                .build());
+        boolean result = streamBridge.send(bingingName, MessageBuilder.withPayload(message)
+                                                                      .setHeader("TAGS", tag)
+                                                                      .setHeader(headerKey, headerValue)
+                                                                      .build());
         logger.info("send result : {} , {}", bingingName, result);
         return result;
     }

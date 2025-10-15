@@ -15,14 +15,12 @@ import com.xiaowang.shopping.tcc.response.TransactionTryResponse;
 
 /**
  * 盲盒服务
- *
  * @author cola
  */
 public class TransactionLogService extends ServiceImpl<TransactionLogMapper, TransactionLog> {
 
     /**
      * TCC事务的Try
-     *
      * @param tccRequest
      * @return
      */
@@ -36,13 +34,12 @@ public class TransactionLogService extends ServiceImpl<TransactionLogMapper, Tra
             return new TransactionTryResponse(false, "TRY_FAILED", "TRY_FAILED");
         }
 
-        //幂等
+        // 幂等
         return new TransactionTryResponse(true, TransTrySuccessType.DUPLICATED_TRY);
     }
 
     /**
      * TCC事务的Confirm
-     *
      * @param tccRequest
      * @return
      */
@@ -61,7 +58,7 @@ public class TransactionLogService extends ServiceImpl<TransactionLogMapper, Tra
             return new TransactionConfirmResponse(false, "CONFIRM_FAILED", "CONFIRM_FAILED");
         }
 
-        //幂等
+        // 幂等
         if (existTransactionLog.getState() == TransActionLogState.CONFIRM) {
             return new TransactionConfirmResponse(true, TransConfirmSuccessType.DUPLICATED_CONFIRM);
         }
@@ -71,15 +68,15 @@ public class TransactionLogService extends ServiceImpl<TransactionLogMapper, Tra
 
     /**
      * TCC事务的Cancel
-     *
      * @param tccRequest
      * @return
      */
     public TransactionCancelResponse cancelTransaction(TccRequest tccRequest) {
         TransactionLog existTransactionLog = getExistTransLog(tccRequest);
-        //如果还没有Try，则直接记录一条状态为Cancel的数据，避免发生空回滚，并解决悬挂问题
+        // 如果还没有Try，则直接记录一条状态为Cancel的数据，避免发生空回滚，并解决悬挂问题
         if (existTransactionLog == null) {
-            TransactionLog transactionLog = new TransactionLog(tccRequest, TransActionLogState.CANCEL, TransCancelSuccessType.EMPTY_CANCEL);
+            TransactionLog transactionLog = new TransactionLog(tccRequest, TransActionLogState.CANCEL,
+                                                               TransCancelSuccessType.EMPTY_CANCEL);
             if (this.save(transactionLog)) {
                 return new TransactionCancelResponse(true, TransCancelSuccessType.EMPTY_CANCEL);
             }
@@ -104,7 +101,7 @@ public class TransactionLogService extends ServiceImpl<TransactionLogMapper, Tra
             return new TransactionCancelResponse(false, "CANCEL_FAILED", "CANCEL_FAILED");
         }
 
-        //幂等
+        // 幂等
         if (existTransactionLog.getState() == TransActionLogState.CANCEL) {
             return new TransactionCancelResponse(true, TransCancelSuccessType.DUPLICATED_CANCEL);
         }

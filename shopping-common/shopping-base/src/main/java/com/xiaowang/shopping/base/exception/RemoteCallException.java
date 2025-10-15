@@ -3,7 +3,7 @@ package com.xiaowang.shopping.base.exception;
 /**
  * @author cola
  */
-public class RemoteCallException extends SystemException{
+public class RemoteCallException extends SystemException {
 
     public RemoteCallException(ErrorCode errorCode) {
         super(errorCode);
@@ -21,7 +21,8 @@ public class RemoteCallException extends SystemException{
         super(cause, errorCode);
     }
 
-    public RemoteCallException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, ErrorCode errorCode) {
+    public RemoteCallException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace
+            , ErrorCode errorCode) {
         super(message, cause, enableSuppression, writableStackTrace, errorCode);
     }
 

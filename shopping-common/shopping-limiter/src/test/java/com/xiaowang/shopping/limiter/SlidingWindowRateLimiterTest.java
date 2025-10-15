@@ -1,6 +1,5 @@
 package com.xiaowang.shopping.limiter;
 
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class SlidingWindowRateLimiterTest {
 
         try {
             Thread.currentThread().sleep(10000);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         result = slidingWindowRateLimiter.tryAcquire("testLock997", 3, 10);

@@ -20,7 +20,6 @@ public interface UserConvertor {
 
     /**
      * 转换为vo
-     *
      * @param request
      * @return
      */
@@ -38,7 +37,6 @@ public interface UserConvertor {
 
     /**
      * 转换为实体
-     *
      * @param request
      * @return
      */
@@ -47,7 +45,6 @@ public interface UserConvertor {
 
     /**
      * 转换为VO
-     *
      * @param request
      * @return
      */

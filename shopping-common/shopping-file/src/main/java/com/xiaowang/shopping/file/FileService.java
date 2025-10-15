@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 /**
  * 文件 服务
- *
  * @author cola
  */
 public interface FileService {

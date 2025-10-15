@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import static com.xiaowang.shopping.base.response.ResponseCode.SUCCESS;
 
-
 /**
  * @author Hollis
  */
@@ -49,7 +48,7 @@ public class Result<T> {
         this.code = code;
     }
 
-    public Result(SingleResponse<T> singleResponse){
+    public Result(SingleResponse<T> singleResponse) {
         this.success = singleResponse.getSuccess();
         this.data = singleResponse.getData();
         this.code = singleResponse.getResponseCode();
@@ -60,7 +59,7 @@ public class Result<T> {
         return new Result<>(true, SUCCESS.name(), SUCCESS.name(), data);
     }
 
-    public static <T> Result<T> error(String errorCode,String errorMsg) {
+    public static <T> Result<T> error(String errorCode, String errorMsg) {
         return new Result<>(false, errorCode, errorMsg, null);
     }
 }

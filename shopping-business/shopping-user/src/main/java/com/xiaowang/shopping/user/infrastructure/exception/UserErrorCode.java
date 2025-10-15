@@ -1,11 +1,9 @@
 package com.xiaowang.shopping.user.infrastructure.exception;
 
-
 import com.xiaowang.shopping.base.exception.ErrorCode;
 
 /**
  * 用户错误码
- *
  * @author cola
  */
 public enum UserErrorCode implements ErrorCode {

@@ -4,43 +4,47 @@ import lombok.Data;
 
 /**
  * 用户信息视图对象
- *
  * @author wangjin
  */
 @Data
 public class UserProfileVO {
-  /**
-   * 用户ID
-   */
-  private Long id;
+    /**
+     * 用户ID
+     */
+    private Long id;
 
-  /**
-   * 昵称
-   */
-  private String nickName;
+    /**
+     * 昵称
+     */
+    private String nickName;
 
-  /**
-   * 头像URL
-   */
-  private String avatarUrl;
+    /**
+     * 账号
+     */
+    private String userName;
 
-  /**
-   * 手机号
-   */
-  private String phone;
+    /**
+     * 头像URL
+     */
+    private String avatarUrl;
 
-  /**
-   * 积分
-   */
-  private Integer points;
+    /**
+     * 手机号
+     */
+    private String phone;
 
-  /**
-   * 优惠券数量
-   */
-  private Integer coupons;
+    /**
+     * 积分
+     */
+    private Integer points;
 
-  /**
-   * 余额
-   */
-  private Double balance;
+    /**
+     * 优惠券数量
+     */
+    private Integer coupons;
+
+    /**
+     * 余额
+     */
+    private Double balance;
 }

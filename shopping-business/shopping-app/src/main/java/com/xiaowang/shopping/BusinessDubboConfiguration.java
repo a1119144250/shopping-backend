@@ -8,18 +8,17 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * dubbo配置
- *
  * @author cola
  */
 @Configuration
 public class BusinessDubboConfiguration {
 
     //@DubboReference(version = "1.0.0")
-    //private ChainFacadeService chainFacadeService;
+    // private ChainFacadeService chainFacadeService;
 
     //@Bean
     //@ConditionalOnMissingBean(name = "chainFacadeService")
-    //public ChainFacadeService chainFacadeService() {
+    // public ChainFacadeService chainFacadeService() {
     //    return chainFacadeService;
     //}
 
@@ -31,6 +30,5 @@ public class BusinessDubboConfiguration {
     public UserFacadeService userFacadeService() {
         return userFacadeService;
     }
-
 
 }

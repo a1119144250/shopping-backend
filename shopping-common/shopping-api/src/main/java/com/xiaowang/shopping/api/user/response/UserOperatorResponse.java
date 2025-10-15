@@ -7,7 +7,6 @@ import lombok.Setter;
 
 /**
  * 用户操作响应
- *
  * @author cola
  */
 @Getter

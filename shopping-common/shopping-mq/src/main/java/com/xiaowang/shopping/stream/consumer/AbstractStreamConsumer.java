@@ -9,7 +9,6 @@ import static com.xiaowang.shopping.stream.producer.StreamProducer.ROCKET_MQ_MES
 import static com.xiaowang.shopping.stream.producer.StreamProducer.ROCKET_MQ_TOPIC;
 import static com.xiaowang.shopping.stream.producer.StreamProducer.ROCKET_TAGS;
 
-
 /**
  * MQ消费基类
  * author: cola
@@ -19,7 +18,6 @@ public class AbstractStreamConsumer {
 
     /**
      * 从msg中解析出消息对象
-     *
      * @param msg
      * @param type
      * @param <T>
@@ -30,7 +28,8 @@ public class AbstractStreamConsumer {
         String tag = msg.getHeaders().get(ROCKET_TAGS, String.class);
         String topic = msg.getHeaders().get(ROCKET_MQ_TOPIC, String.class);
         Object object = JSON.parseObject(msg.getPayload().getBody(), type);
-        log.info("Received Message topic:{} messageId:{},object:{}，tag:{}", topic, messageId, JSON.toJSONString(object), tag);
-        return (T) object;
+        log.info("Received Message topic:{} messageId:{},object:{}，tag:{}", topic, messageId,
+                 JSON.toJSONString(object), tag);
+        return (T)object;
     }
 }

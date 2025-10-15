@@ -26,7 +26,6 @@ public class GlobalWebExceptionHandler {
 
     /**
      * 自定义方法参数校验异常处理器
-     *
      * @param ex
      * @return
      */
@@ -37,7 +36,7 @@ public class GlobalWebExceptionHandler {
         log.error("MethodArgumentNotValidException occurred.", ex);
         Map<String, String> errors = Maps.newHashMapWithExpectedSize(1);
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
+            String fieldName = ((FieldError)error).getField();
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
@@ -46,7 +45,6 @@ public class GlobalWebExceptionHandler {
 
     /**
      * 自定义业务异常处理器
-     *
      * @param bizException
      * @return
      */
@@ -68,7 +66,6 @@ public class GlobalWebExceptionHandler {
 
     /**
      * 自定义系统异常处理器
-     *
      * @param systemException
      * @return
      */
@@ -90,7 +87,6 @@ public class GlobalWebExceptionHandler {
 
     /**
      * 自定义系统异常处理器
-     *
      * @param throwable
      * @return
      */
@@ -98,7 +94,7 @@ public class GlobalWebExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Result throwableHandler(Throwable throwable) {
-        log.error("throwable occurred.",throwable);
+        log.error("throwable occurred.", throwable);
         Result result = new Result();
         result.setCode(SYSTEM_ERROR.name());
         result.setMessage("哎呀，当前网络比较拥挤，请您稍后再试~");

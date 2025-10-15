@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 /**
  * 通用出参
- *
  * @author cola
  */
 @Setter

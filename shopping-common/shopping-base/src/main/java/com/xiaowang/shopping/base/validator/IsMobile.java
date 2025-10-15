@@ -1,4 +1,5 @@
 package com.xiaowang.shopping.base.validator;
+
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -9,7 +10,6 @@ import java.lang.annotation.Target;
 
 /**
  * 是否手机号校验注解
- *
  * @author cola
  */
 @Constraint(validatedBy = MobileValidator.class)

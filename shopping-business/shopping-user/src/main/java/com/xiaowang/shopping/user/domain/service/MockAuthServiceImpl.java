@@ -2,7 +2,6 @@ package com.xiaowang.shopping.user.domain.service;
 
 /**
  * Mock的认证服务
- *
  * @author cola
  */
 public class MockAuthServiceImpl implements AuthService {

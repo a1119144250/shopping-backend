@@ -27,7 +27,6 @@ public class UserInfo extends BasicUserInfo {
 
     /**
      * 状态
-     *
      * @see UserStateEnum
      */
     private String state;
@@ -67,11 +66,11 @@ public class UserInfo extends BasicUserInfo {
         if (this.getUserRole() != null && !this.getUserRole().equals(UserRole.CUSTOMER)) {
             return false;
         }
-        //判断买家状态
+        // 判断买家状态
         if (this.getState() != null && !this.getState().equals(UserStateEnum.ACTIVE.name())) {
             return false;
         }
-        //判断买家状态
+        // 判断买家状态
         if (this.getState() != null && !this.getCertification()) {
             return false;
         }

@@ -1,6 +1,5 @@
 package com.xiaowang.shopping.api.user.service;
 
-
 import com.xiaowang.shopping.api.user.request.UserRegisterRequest;
 import com.xiaowang.shopping.api.user.response.UserOperatorResponse;
 
@@ -11,7 +10,6 @@ public interface UserManageFacadeService {
 
     /**
      * 管理用户注册
-     *
      * @param userRegisterRequest
      * @return
      */
@@ -19,7 +17,6 @@ public interface UserManageFacadeService {
 
     /**
      * 用户冻结
-     *
      * @param userId
      * @return
      */
@@ -27,7 +24,6 @@ public interface UserManageFacadeService {
 
     /**
      * 用户解冻
-     *
      * @param userId
      * @return
      */

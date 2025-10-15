@@ -6,7 +6,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 /**
  * 手机号校验器
- *
  * @author cola
  */
 public class MobileValidator implements ConstraintValidator<IsMobile, String> {

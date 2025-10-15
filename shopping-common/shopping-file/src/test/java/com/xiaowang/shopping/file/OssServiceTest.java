@@ -25,7 +25,7 @@ public class OssServiceTest {
     public void testUploadFile() {
         // 填写字符串。
         String content = "Hello OSS，你好世界";
-        //https://nfturbo-file.oss-cn-hangzhou.aliyuncs.com/img/test.txt
+        // https://nfturbo-file.oss-cn-hangzhou.aliyuncs.com/img/test.txt
         boolean res = ossService.upload("img/123.txt", new ByteArrayInputStream(content.getBytes()));
         Assert.assertTrue(res);
     }

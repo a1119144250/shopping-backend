@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * 认证服务
- *
  * @author cola
  */
 @Slf4j
@@ -33,9 +32,9 @@ public class AuthServiceImpl implements AuthService {
     public boolean checkAuth(String realName, String idCard) {
         String method = "POST";
         Map<String, String> headers = Maps.newHashMapWithExpectedSize(2);
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+        // 最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
-        //根据API的要求，定义相对应的Content-Type
+        // 根据API的要求，定义相对应的Content-Type
         headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         Map<String, String> querys = Maps.newHashMapWithExpectedSize(2);
         Map<String, String> bodys = Maps.newHashMapWithExpectedSize(2);

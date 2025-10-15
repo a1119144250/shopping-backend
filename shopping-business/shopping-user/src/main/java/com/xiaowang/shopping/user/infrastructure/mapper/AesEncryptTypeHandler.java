@@ -11,7 +11,6 @@ import java.sql.SQLException;
 
 /**
  * AES加密类型处理器
- *
  * @author cola
  */
 public class AesEncryptTypeHandler extends BaseTypeHandler<String> {

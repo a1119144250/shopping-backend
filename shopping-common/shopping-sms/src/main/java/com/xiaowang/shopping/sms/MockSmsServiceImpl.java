@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Mock短信服务
- *
  * @author cola
  */
 @Slf4j

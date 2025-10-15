@@ -2,7 +2,6 @@ package com.xiaowang.shopping.api.common.constant;
 
 /**
  * 通用的常量
- *
  * @author cola
  */
 public class CommonConstant {

@@ -5,7 +5,6 @@ import lombok.experimental.Accessors;
 
 /**
  * 消息
- *
  * @author hollis
  */
 @Data

@@ -7,7 +7,6 @@ import java.util.List;
 
 /**
  * 分页响应
- *
  * @author cola
  */
 @Setter
@@ -32,7 +31,7 @@ public class PageResponse<T> extends MultiResponse<T> {
      */
     private int total;
 
-    public static <T> PageResponse<T> of(List<T> datas, int total, int pageSize,int currentPage) {
+    public static <T> PageResponse<T> of(List<T> datas, int total, int pageSize, int currentPage) {
         PageResponse<T> pageResponse = new PageResponse<>();
         pageResponse.setSuccess(true);
         pageResponse.setDatas(datas);

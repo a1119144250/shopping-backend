@@ -17,7 +17,6 @@ import static com.xiaowang.shopping.base.exception.BizErrorCode.REMOTE_CALL_RESP
 
 /**
  * 远程方法调用的包装工具类
- *
  * @author cola
  */
 public class RemoteCallWrapper {
@@ -25,12 +24,11 @@ public class RemoteCallWrapper {
     private static Logger logger = LoggerFactory.getLogger(RemoteCallWrapper.class);
 
     private static ImmutableSet<String> SUCCESS_CHECK_METHOD = ImmutableSet.of("isSuccess", "isSucceeded",
-            "getSuccess");
+                                                                               "getSuccess");
 
     private static ImmutableSet<String> SUCCESS_CODE_METHOD = ImmutableSet.of("getResponseCode");
 
-    private static ImmutableSet<String> SUCCESS_CODE = ImmutableSet.of("SUCCESS", "DUPLICATE",
-            "DUPLICATED_REQUEST");
+    private static ImmutableSet<String> SUCCESS_CODE = ImmutableSet.of("SUCCESS", "DUPLICATE", "DUPLICATED_REQUEST");
 
     public static <T, R> R call(Function<T, R> function, T request, boolean checkResponse) {
         return call(function, request, request.getClass().getSimpleName(), checkResponse, false);
@@ -44,7 +42,7 @@ public class RemoteCallWrapper {
         return call(function, request, requestName, true, false);
     }
 
-    public static <T, R> R call(Function<T, R> function, T request, String requestName,boolean checkResponse) {
+    public static <T, R> R call(Function<T, R> function, T request, String requestName, boolean checkResponse) {
         return call(function, request, requestName, checkResponse, false);
     }
 
@@ -67,8 +65,7 @@ public class RemoteCallWrapper {
 
                 if (!isResponseValid(response)) {
                     logger.error("Response Invalid on Remote Call request {} , response {}",
-                            JSON.toJSONString(request),
-                            JSON.toJSONString(response));
+                                 JSON.toJSONString(request), JSON.toJSONString(response));
 
                     throw new RemoteCallException(JSON.toJSONString(response), REMOTE_CALL_RESPONSE_IS_FAILED);
                 }
@@ -79,8 +76,7 @@ public class RemoteCallWrapper {
 
                 if (!isResponseCodeValid(response)) {
                     logger.error("Response code Invalid on Remote Call request {} , response {}",
-                            JSON.toJSONString(request),
-                            JSON.toJSONString(response));
+                                 JSON.toJSONString(request), JSON.toJSONString(response));
 
                     throw new RemoteCallException(JSON.toJSONString(response), REMOTE_CALL_RESPONSE_IS_FAILED);
                 }
@@ -97,16 +93,14 @@ public class RemoteCallWrapper {
             if (logger.isInfoEnabled()) {
 
                 logger.info("## Method={} ,## 耗时={}ms ,## [请求报文]:{},## [响应报文]:{}", requestName,
-                        stopWatch.getTotalTimeMillis(),
-                        JSON.toJSONString(request), JSON.toJSONString(response));
+                            stopWatch.getTotalTimeMillis(), JSON.toJSONString(request), JSON.toJSONString(response));
             }
         }
 
         return response;
     }
 
-    private static <R> boolean isResponseValid(R response)
-            throws IllegalAccessException, InvocationTargetException {
+    private static <R> boolean isResponseValid(R response) throws IllegalAccessException, InvocationTargetException {
         Method successMethod = null;
         Method[] methods = response.getClass().getMethods();
         for (Method method : methods) {
@@ -120,11 +114,11 @@ public class RemoteCallWrapper {
             return true;
         }
 
-        return (Boolean) successMethod.invoke(response);
+        return (Boolean)successMethod.invoke(response);
     }
 
-    private static <R> boolean isResponseCodeValid(R response)
-            throws IllegalAccessException, InvocationTargetException {
+    private static <R> boolean isResponseCodeValid(R response) throws IllegalAccessException,
+            InvocationTargetException {
         Method successMethod = null;
         Method[] methods = response.getClass().getMethods();
         for (Method method : methods) {

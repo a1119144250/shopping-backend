@@ -11,15 +11,15 @@ import java.util.Objects;
 public class FileUtil {
 
     public static boolean isExcel(File file) {
-        return file.getName().endsWith(Constant.XLS_EXCEL_FILE_TYPE)
-                || file.getName().endsWith(Constant.XLSX_EXCEL_FILE_TYPE);
+        return file.getName().endsWith(Constant.XLS_EXCEL_FILE_TYPE) || file.getName()
+                                                                            .endsWith(Constant.XLSX_EXCEL_FILE_TYPE);
     }
 
-    public static boolean notExcel(MultipartFile file){
-        return !Objects.requireNonNull(file.getOriginalFilename()).endsWith(Constant.XLS_EXCEL_FILE_TYPE)
-                && !file.getOriginalFilename().endsWith(Constant.XLSX_EXCEL_FILE_TYPE);
+    public static boolean notExcel(MultipartFile file) {
+        return !Objects.requireNonNull(file.getOriginalFilename())
+                       .endsWith(Constant.XLS_EXCEL_FILE_TYPE) && !file.getOriginalFilename()
+                                                                       .endsWith(Constant.XLSX_EXCEL_FILE_TYPE);
     }
-
 
     public static File newFileToTempDir(String fileName) {
         File tmpDirectory = FileUtils.getTempDirectory();

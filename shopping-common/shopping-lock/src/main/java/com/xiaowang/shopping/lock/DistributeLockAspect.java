@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 分布式锁切面
- *
  * @author cola
  */
 @Aspect
@@ -40,7 +39,7 @@ public class DistributeLockAspect {
     @Around("@annotation(com.xiaowang.shopping.lock.DistributeLock)")
     public Object process(ProceedingJoinPoint pjp) throws Exception {
         Object response = null;
-        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+        Method method = ((MethodSignature)pjp.getSignature()).getMethod();
         DistributeLock distributeLock = method.getAnnotation(DistributeLock.class);
 
         String key = distributeLock.key();
@@ -56,8 +55,7 @@ public class DistributeLockAspect {
             Object[] args = pjp.getArgs();
 
             // 获取运行时参数的名称
-            StandardReflectionParameterNameDiscoverer discoverer
-                    = new StandardReflectionParameterNameDiscoverer();
+            StandardReflectionParameterNameDiscoverer discoverer = new StandardReflectionParameterNameDiscoverer();
             String[] parameterNames = discoverer.getParameterNames(method);
 
             // 将参数绑定到context中
@@ -77,7 +75,7 @@ public class DistributeLockAspect {
 
         int expireTime = distributeLock.expireTime();
         int waitTime = distributeLock.waitTime();
-        RLock rLock= redissonClient.getLock(lockKey);
+        RLock rLock = redissonClient.getLock(lockKey);
         try {
             boolean lockResult = false;
             if (waitTime == DistributeLockConstant.DEFAULT_WAIT_TIME) {
@@ -94,7 +92,8 @@ public class DistributeLockAspect {
                     LOG.info(String.format("try lock for key : %s , wait : %s", lockKey, waitTime));
                     lockResult = rLock.tryLock(waitTime, TimeUnit.MILLISECONDS);
                 } else {
-                    LOG.info(String.format("try lock for key : %s , expire : %s , wait : %s", lockKey, expireTime, waitTime));
+                    LOG.info(String.format("try lock for key : %s , expire : %s , wait : %s", lockKey, expireTime,
+                                           waitTime));
                     lockResult = rLock.tryLock(waitTime, expireTime, TimeUnit.MILLISECONDS);
                 }
             }
@@ -103,7 +102,6 @@ public class DistributeLockAspect {
                 LOG.warn(String.format("lock failed for key : %s , expire : %s", lockKey, expireTime));
                 throw new DistributeLockException("acquire lock failed... key : " + lockKey);
             }
-
 
             LOG.info(String.format("lock success for key : %s , expire : %s", lockKey, expireTime));
             response = pjp.proceed();

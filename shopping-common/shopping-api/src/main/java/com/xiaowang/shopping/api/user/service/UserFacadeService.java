@@ -1,6 +1,5 @@
 package com.xiaowang.shopping.api.user.service;
 
-
 import com.xiaowang.shopping.api.user.request.UserActiveRequest;
 import com.xiaowang.shopping.api.user.request.UserAuthRequest;
 import com.xiaowang.shopping.api.user.request.UserModifyRequest;
@@ -23,7 +22,6 @@ public interface UserFacadeService {
      * @return
      */
     UserQueryResponse<UserInfo> query(UserQueryRequest userQueryRequest);
-
 
     /**
      * 分页查询用户信息

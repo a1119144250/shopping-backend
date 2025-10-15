@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 /**
  * 通用入参
- *
  * @author cola
  */
 @Setter

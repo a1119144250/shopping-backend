@@ -14,7 +14,7 @@ public class DistributeLockConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public DistributeLockAspect distributeLockAspect(RedissonClient redisson){
+    public DistributeLockAspect distributeLockAspect(RedissonClient redisson) {
         return new DistributeLockAspect(redisson);
     }
 }

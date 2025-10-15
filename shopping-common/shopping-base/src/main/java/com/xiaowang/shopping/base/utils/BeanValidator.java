@@ -8,16 +8,17 @@ import org.hibernate.validator.HibernateValidator;
 
 import java.util.Set;
 
-
 /**
  * 参数校验工具
- *
  * @author cola
  */
 public class BeanValidator {
 
-    private static Validator validator = Validation.byProvider(HibernateValidator.class).configure().failFast(true)
-            .buildValidatorFactory().getValidator();
+    private static Validator validator = Validation.byProvider(HibernateValidator.class)
+                                                   .configure()
+                                                   .failFast(true)
+                                                   .buildValidatorFactory()
+                                                   .getValidator();
 
     /**
      * @param object object

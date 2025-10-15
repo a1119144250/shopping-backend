@@ -21,8 +21,8 @@ public class SmsServiceImplTest {
         // 填写字符串。
         String phoneNumber = "12325815658";
         String code = "3456";
-        SmsService smsService=new MockSmsServiceImpl();
-        SmsSendResponse res=smsService.sendMsg(phoneNumber, code);
+        SmsService smsService = new MockSmsServiceImpl();
+        SmsSendResponse res = smsService.sendMsg(phoneNumber, code);
         Assert.assertTrue(res.getSuccess());
     }
 }

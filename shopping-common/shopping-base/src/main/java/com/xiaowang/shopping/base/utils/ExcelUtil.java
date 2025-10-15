@@ -20,14 +20,12 @@ public class ExcelUtil {
         try (InputStream is = file.getInputStream()) {
             // 只读取第一行
             EasyExcel.read(is, new PageReadListener<List<String>>(dataList -> {
-                if (!dataList.isEmpty()) {
-                    List<String> firstRow = dataList.get(0);
-                    headers.addAll(firstRow);
-                }
-            }))
-            .headRowNumber(0) // 不指定模型，直接读取原始数据
-            .sheet()
-            .doRead();
+                         if (!dataList.isEmpty()) {
+                             List<String> firstRow = dataList.get(0);
+                             headers.addAll(firstRow);
+                         }
+                     })).headRowNumber(0) // 不指定模型，直接读取原始数据
+                     .sheet().doRead();
         } catch (Exception e) {
             throw new RuntimeException("读取Excel表头失败", e);
         }

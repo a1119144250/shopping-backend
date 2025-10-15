@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 缓存配置
- *
  * @author cola
  */
 @Configuration

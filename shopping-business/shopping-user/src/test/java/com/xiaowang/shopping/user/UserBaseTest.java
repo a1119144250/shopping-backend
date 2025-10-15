@@ -10,18 +10,18 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { ShoppingUserApplication.class })
+@SpringBootTest(classes = {ShoppingUserApplication.class})
 @ActiveProfiles("test")
 public class UserBaseTest {
 
-  @MockBean
-  private RedissonClient redissonClient;
+    @MockBean
+    private RedissonClient redissonClient;
 
-  @MockBean
-  private CacheManager cacheManager;
+    @MockBean
+    private CacheManager cacheManager;
 
-  @Test
-  public void test() {
+    @Test
+    public void test() {
 
-  }
+    }
 }

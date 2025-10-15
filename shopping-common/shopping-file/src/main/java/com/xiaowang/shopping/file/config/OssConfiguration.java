@@ -1,6 +1,5 @@
 package com.xiaowang.shopping.file.config;
 
-
 import com.xiaowang.shopping.file.FileService;
 import com.xiaowang.shopping.file.MockFileServiceImpl;
 import com.xiaowang.shopping.file.OssServiceImpl;

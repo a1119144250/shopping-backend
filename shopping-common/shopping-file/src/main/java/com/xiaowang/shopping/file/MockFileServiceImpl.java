@@ -7,13 +7,11 @@ import java.io.InputStream;
 
 /**
  * oss 服务
- *
  * @author cola
  */
 @Slf4j
 @Setter
 public class MockFileServiceImpl implements FileService {
-
 
     @Override
     public boolean upload(String path, InputStream fileStream) {

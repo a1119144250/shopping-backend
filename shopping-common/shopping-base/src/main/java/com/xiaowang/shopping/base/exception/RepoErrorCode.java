@@ -2,7 +2,6 @@ package com.xiaowang.shopping.base.exception;
 
 /**
  * 错误码
- *
  * @author cola
  */
 public enum RepoErrorCode implements ErrorCode {

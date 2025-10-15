@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * ES配置
- *
  * @author hollis
  */
 @Configuration

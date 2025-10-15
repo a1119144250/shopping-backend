@@ -42,10 +42,11 @@ public class TokenFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException {
         try {
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            HttpServletRequest httpRequest = (HttpServletRequest)request;
+            HttpServletResponse httpResponse = (HttpServletResponse)response;
 
             // 从请求头中获取Token
             String token = httpRequest.getHeader("Authorization");
@@ -84,7 +85,6 @@ public class TokenFilter implements Filter {
      * 4、如果不一致，抛异常
      * 5、如果一致，则删除这个key
      * </p>
-     *
      * @param token
      * @param isStress
      * @return
@@ -92,29 +92,28 @@ public class TokenFilter implements Filter {
     private boolean checkTokenValidity(String token, Boolean isStress) {
         String result;
         if (isStress) {
-            //如果是压测，则生成一个随机数，模拟 token
+            // 如果是压测，则生成一个随机数，模拟 token
             result = UUID.randomUUID().toString();
             STRESS_THREAD_LOCAL.set(isStress);
-        }else{
+        } else {
             String tokenKey = TokenUtil.getTokenKeyByValue(token);
 
             String luaScript = """
-                local value = redis.call('GET', KEYS[1])
-                
-                if value ~= ARGV[1] then
-                    return redis.error_reply('token not valid')
-                end
-                
-                redis.call('DEL', KEYS[1])
-                return value""";
+                    local value = redis.call('GET', KEYS[1])
+                    
+                    if value ~= ARGV[1] then
+                        return redis.error_reply('token not valid')
+                    end
+                    
+                    redis.call('DEL', KEYS[1])
+                    return value""";
 
             try {
                 /// 6.2.3以上可以直接使用GETDEL命令
                 /// String value = (String) redisTemplate.opsForValue().getAndDelete(token);
-                result = (String) redissonClient.getScript().eval(RScript.Mode.READ_WRITE,
-                        luaScript,
-                        RScript.ReturnType.STATUS,
-                        Arrays.asList(tokenKey), token);
+                result = (String)redissonClient.getScript()
+                                               .eval(RScript.Mode.READ_WRITE, luaScript, RScript.ReturnType.STATUS,
+                                                     Arrays.asList(tokenKey), token);
             } catch (RedisException e) {
                 logger.error("check token failed", e);
                 return false;

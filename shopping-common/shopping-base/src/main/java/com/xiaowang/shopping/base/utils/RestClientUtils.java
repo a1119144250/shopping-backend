@@ -13,7 +13,6 @@ import java.util.Map;
 
 /**
  * RestClient工具
- *
  * @author cola
  */
 @Slf4j
@@ -23,8 +22,7 @@ public class RestClientUtils {
         return headers;
     }
 
-    private static String buildUrl(String path, Map<String, String> querys) throws
-            UnsupportedEncodingException {
+    private static String buildUrl(String path, Map<String, String> querys) throws UnsupportedEncodingException {
         StringBuilder sbUrl = new StringBuilder();
         if (!StringUtils.isBlank(path)) {
             sbUrl.append(path);
@@ -55,25 +53,22 @@ public class RestClientUtils {
     }
 
     public static ResponseEntity doPost(String host, String path, Map<String, String> headersMap,
-                                        Map<String, String> querys,
-                                        Map<String, String> bodys) throws Exception {
+                                        Map<String, String> querys, Map<String, String> bodys) throws Exception {
 
-
-        RestClient restClient = RestClient.builder()
-                .baseUrl(host)
-                .build();
+        RestClient restClient = RestClient.builder().baseUrl(host).build();
 
         var result = restClient.post()
-                .uri(buildUrl(path, querys))
-                .headers(
-                        headers -> configureHeaders(headers, headersMap))
-                .body(bodys)
-                .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                    log.error("http client error, request: {}, response: {}", request, response);
-                }).onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
-                    log.error("http server error, request: {}, response: {}", request, response);
-                }).toBodilessEntity();
+                               .uri(buildUrl(path, querys))
+                               .headers(headers -> configureHeaders(headers, headersMap))
+                               .body(bodys)
+                               .retrieve()
+                               .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                                   log.error("http client error, request: {}, response: {}", request, response);
+                               })
+                               .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
+                                   log.error("http server error, request: {}, response: {}", request, response);
+                               })
+                               .toBodilessEntity();
 
         return result;
     }

@@ -14,7 +14,6 @@ import java.util.Date;
  * <p>
  * 用户操作流水表 服务类
  * </p>
- *
  * @author cola
  */
 @Service

@@ -7,15 +7,15 @@
         <artifactId>shopping-business</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    
+
     <artifactId>shopping-user</artifactId>
     <name>shopping-user</name>
     <description>用户模块</description>
-    
+
     <properties>
         <application.name>shopping-user</application.name>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -103,7 +103,7 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-mate-annotation</artifactId>

@@ -24,7 +24,6 @@ import java.util.Arrays;
 
 /**
  * Facade的切面处理类，统一统计进行参数校验及异常捕获
- *
  * @author cola
  */
 @Aspect
@@ -40,13 +39,13 @@ public class FacadeAspect {
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
 
-        Method method = ((MethodSignature) pjp.getSignature()).getMethod();
+        Method method = ((MethodSignature)pjp.getSignature()).getMethod();
         Object[] args = pjp.getArgs();
         LOGGER.info("start to execute , method = " + method.getName() + " , args = " + JSON.toJSONString(args));
 
-        Class returnType = ((MethodSignature) pjp.getSignature()).getMethod().getReturnType();
+        Class returnType = ((MethodSignature)pjp.getSignature()).getMethod().getReturnType();
 
-        //循环遍历所有参数，进行参数校验
+        // 循环遍历所有参数，进行参数校验
         for (Object parameter : args) {
             try {
                 BeanValidator.validateObject(parameter);
@@ -71,7 +70,6 @@ public class FacadeAspect {
 
     /**
      * 日志打印
-     *
      * @param stopWatch
      * @param method
      * @param args
@@ -81,7 +79,7 @@ public class FacadeAspect {
     private void printLog(StopWatch stopWatch, Method method, Object[] args, String action, Object response,
                           Throwable throwable) {
         try {
-            //因为此处有JSON.toJSONString，可能会有异常，需要进行捕获，避免影响主干流程
+            // 因为此处有JSON.toJSONString，可能会有异常，需要进行捕获，避免影响主干流程
             LOGGER.info(getInfoMessage(action, stopWatch, method, args, response, throwable), throwable);
             // 如果校验失败，则返回一个失败的response
         } catch (Exception e1) {
@@ -93,12 +91,11 @@ public class FacadeAspect {
      * 统一格式输出，方便做日志统计
      * <p>
      * *** 如果调整此处的格式，需要同步调整日志监控 ***
-     *
-     * @param action    行为
+     * @param action 行为
      * @param stopWatch 耗时
-     * @param method    方法
-     * @param args      参数
-     * @param response  响应
+     * @param method 方法
+     * @param args 参数
+     * @param response 响应
      * @return 拼接后的字符串
      */
     private String getInfoMessage(String action, StopWatch stopWatch, Method method, Object[] args, Object response,
@@ -111,7 +108,7 @@ public class FacadeAspect {
         stringBuilder.append(stopWatch.getTime()).append(" ms");
         if (response instanceof BaseResponse) {
             stringBuilder.append(" ,success = ");
-            stringBuilder.append(((BaseResponse) response).getSuccess());
+            stringBuilder.append(((BaseResponse)response).getSuccess());
         }
         if (exception != null) {
             stringBuilder.append(" ,success = ");
@@ -131,7 +128,7 @@ public class FacadeAspect {
         }
 
         if (response instanceof BaseResponse) {
-            BaseResponse baseResponse = (BaseResponse) response;
+            BaseResponse baseResponse = (BaseResponse)response;
             if (!baseResponse.getSuccess()) {
                 stringBuilder.append(" , execute_failed");
             }
@@ -142,20 +139,19 @@ public class FacadeAspect {
 
     /**
      * 将response的信息补全，主要是code和message
-     *
      * @param response
      */
     private void enrichObject(Object response) {
         if (response instanceof BaseResponse) {
-            if (((BaseResponse) response).getSuccess()) {
-                //如果状态是成功的，需要将未设置的responseCode设置成SUCCESS
-                if (StringUtils.isEmpty(((BaseResponse) response).getResponseCode())) {
-                    ((BaseResponse) response).setResponseCode(ResponseCode.SUCCESS.name());
+            if (((BaseResponse)response).getSuccess()) {
+                // 如果状态是成功的，需要将未设置的responseCode设置成SUCCESS
+                if (StringUtils.isEmpty(((BaseResponse)response).getResponseCode())) {
+                    ((BaseResponse)response).setResponseCode(ResponseCode.SUCCESS.name());
                 }
             } else {
-                //如果状态是成功的，需要将未设置的responseCode设置成BIZ_ERROR
-                if (StringUtils.isEmpty(((BaseResponse) response).getResponseCode())) {
-                    ((BaseResponse) response).setResponseCode(ResponseCode.BIZ_ERROR.name());
+                // 如果状态是成功的，需要将未设置的responseCode设置成BIZ_ERROR
+                if (StringUtils.isEmpty(((BaseResponse)response).getResponseCode())) {
+                    ((BaseResponse)response).setResponseCode(ResponseCode.BIZ_ERROR.name());
                 }
             }
         }
@@ -164,12 +160,12 @@ public class FacadeAspect {
     /**
      * 定义并返回一个通用的失败响应
      */
-    private Object getFailedResponse(Class returnType, Throwable throwable)
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    private Object getFailedResponse(Class returnType, Throwable throwable) throws NoSuchMethodException,
+            IllegalAccessException, InvocationTargetException, InstantiationException {
 
-        //如果返回值的类型为BaseResponse 的子类，则创建一个通用的失败响应
+        // 如果返回值的类型为BaseResponse 的子类，则创建一个通用的失败响应
         if (returnType.getDeclaredConstructor().newInstance() instanceof BaseResponse) {
-            BaseResponse response = (BaseResponse) returnType.getDeclaredConstructor().newInstance();
+            BaseResponse response = (BaseResponse)returnType.getDeclaredConstructor().newInstance();
             response.setSuccess(false);
             if (throwable instanceof BizException bizException) {
                 response.setResponseMessage(bizException.getErrorCode().getMessage());
@@ -185,8 +181,7 @@ public class FacadeAspect {
             return response;
         }
 
-        LOGGER.error(
-                "failed to getFailedResponse , returnType (" + returnType + ") is not instanceof BaseResponse");
+        LOGGER.error("failed to getFailedResponse , returnType (" + returnType + ") is not instanceof BaseResponse");
         return null;
     }
 }

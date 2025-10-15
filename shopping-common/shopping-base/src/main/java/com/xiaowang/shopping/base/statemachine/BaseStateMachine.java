@@ -8,7 +8,6 @@ import java.util.Map;
 
 import static com.xiaowang.shopping.base.exception.BizErrorCode.STATE_MACHINE_TRANSITION_FAILED;
 
-
 /**
  * @author cola
  */

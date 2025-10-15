@@ -2,7 +2,6 @@ package com.xiaowang.shopping.lock;
 
 /**
  * 分布式锁常量
- *
  * @author cola
  */
 public class DistributeLockConstant {

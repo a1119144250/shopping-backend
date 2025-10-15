@@ -2,7 +2,6 @@ package com.xiaowang.shopping.base.exception;
 
 /**
  * 业务通用错误码
- *
  * @author cola
  */
 public enum BizErrorCode implements ErrorCode {
@@ -47,9 +46,7 @@ public enum BizErrorCode implements ErrorCode {
      */
     REMOTE_CALL_RESPONSE_IS_FAILED("REMOTE_CALL_RESPONSE_IS_FAILED", "远程调用返回结果失败");
 
-
     private String code;
-
 
     private String message;
 

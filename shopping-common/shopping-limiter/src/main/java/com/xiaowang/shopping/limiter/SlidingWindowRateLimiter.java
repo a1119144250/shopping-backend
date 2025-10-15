@@ -7,7 +7,6 @@ import org.redisson.api.RedissonClient;
 
 /**
  * 滑动窗口限流服务
- *
  * @author cola
  */
 public class SlidingWindowRateLimiter implements RateLimiter {

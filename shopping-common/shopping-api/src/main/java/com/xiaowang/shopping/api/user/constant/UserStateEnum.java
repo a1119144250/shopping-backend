@@ -2,7 +2,6 @@ package com.xiaowang.shopping.api.user.constant;
 
 /**
  * 用户状态
- *
  * @author cola
  */
 public enum UserStateEnum {

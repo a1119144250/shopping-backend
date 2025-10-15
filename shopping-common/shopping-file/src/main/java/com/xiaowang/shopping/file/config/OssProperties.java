@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * oss配置
- *
  * @author cola
  */
 @ConfigurationProperties(prefix = OssProperties.PREFIX)

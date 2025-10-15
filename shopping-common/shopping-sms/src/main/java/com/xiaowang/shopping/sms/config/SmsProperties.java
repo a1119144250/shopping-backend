@@ -4,7 +4,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * 短信配置
- *
  * @author cola
  */
 @ConfigurationProperties(prefix = SmsProperties.PREFIX)

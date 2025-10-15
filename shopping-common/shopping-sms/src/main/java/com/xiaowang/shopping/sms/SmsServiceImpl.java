@@ -15,15 +15,13 @@ import java.util.Map;
 
 import static com.xiaowang.shopping.base.response.ResponseCode.SYSTEM_ERROR;
 
-
 /**
  * 短信服务
- *
  * @author cola
  */
 @Slf4j
 @Setter
-public class SmsServiceImpl implements SmsService{
+public class SmsServiceImpl implements SmsService {
 
     private static Logger logger = LoggerFactory.getLogger(SmsServiceImpl.class);
 
@@ -45,13 +43,13 @@ public class SmsServiceImpl implements SmsService{
 
         String method = "POST";
         Map<String, String> headers = Maps.newHashMapWithExpectedSize(1);
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+        // 最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
         headers.put("Authorization", "APPCODE " + appcode);
         Map<String, String> querys = Maps.newHashMapWithExpectedSize(4);
         querys.put("mobile", phoneNumber);
         querys.put("param", "**code**:" + code + ",**minute**:5");
 
-        //smsSignId（短信前缀）和templateId（短信模板），可登录国阳云控制台自助申请。参考文档：http://help.guoyangyun.com/Problem/Qm.html
+        // smsSignId（短信前缀）和templateId（短信模板），可登录国阳云控制台自助申请。参考文档：http://help.guoyangyun.com/Problem/Qm.html
 
         querys.put("smsSignId", smsSignId);
         querys.put("templateId", templateId);

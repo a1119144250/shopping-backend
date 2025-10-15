@@ -34,8 +34,8 @@ public class UserFacadeServiceImpl implements UserFacadeService {
     @Facade
     @Override
     public UserQueryResponse<UserInfo> query(UserQueryRequest userQueryRequest) {
-        //使用switch表达式精简代码，如果这里编译不过，参考我的文档调整IDEA的JDK版本
-        //文档地址：https://thoughts.aliyun.com/workspaces/6655879cf459b7001ba42f1b/docs/6673f26c5e11940001c810fb#667971268a5c151234adcf92
+        // 使用switch表达式精简代码，如果这里编译不过，参考我的文档调整IDEA的JDK版本
+        // 文档地址：https://thoughts.aliyun.com/workspaces/6655879cf459b7001ba42f1b/docs/6673f26c5e11940001c810fb#667971268a5c151234adcf92
 
         UserQueryCondition userQueryCondition = userQueryRequest.getUserQueryCondition();
         User user = switch (userQueryCondition) {
@@ -44,9 +44,11 @@ public class UserFacadeServiceImpl implements UserFacadeService {
             case UserPhoneQueryCondition userPhoneQueryCondition:
                 yield userService.findByTelephone(userPhoneQueryCondition.getTelephone());
             case UserPhoneAndPasswordQueryCondition userPhoneAndPasswordQueryCondition:
-                yield userService.findByTelephoneAndPass(userPhoneAndPasswordQueryCondition.getTelephone(), userPhoneAndPasswordQueryCondition.getPassword());
+                yield userService.findByTelephoneAndPass(userPhoneAndPasswordQueryCondition.getTelephone(),
+                                                         userPhoneAndPasswordQueryCondition.getPassword());
             default:
-                throw new UnsupportedOperationException(userQueryRequest.getUserQueryCondition() + "'' is not supported");
+                throw new UnsupportedOperationException(userQueryRequest.getUserQueryCondition() + "'' is not " +
+                                                                "supported");
         };
 
         UserQueryResponse<UserInfo> response = new UserQueryResponse();
@@ -59,7 +61,10 @@ public class UserFacadeServiceImpl implements UserFacadeService {
     @Facade
     @Override
     public PageResponse<UserInfo> pageQuery(UserPageQueryRequest userPageQueryRequest) {
-        var queryResult = userService.pageQueryByState(userPageQueryRequest.getKeyWord(), userPageQueryRequest.getState(), userPageQueryRequest.getCurrentPage(), userPageQueryRequest.getPageSize());
+        var queryResult = userService.pageQueryByState(userPageQueryRequest.getKeyWord(),
+                                                       userPageQueryRequest.getState(),
+                                                       userPageQueryRequest.getCurrentPage(),
+                                                       userPageQueryRequest.getPageSize());
         PageResponse<UserInfo> response = new PageResponse<>();
         if (!queryResult.getSuccess()) {
             response.setSuccess(false);
