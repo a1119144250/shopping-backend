@@ -1,10 +1,12 @@
 package com.xiaowang.shopping.job.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * @author cola
  */
+@Component
 @ConfigurationProperties(prefix = XxlJobProperties.PREFIX)
 public class XxlJobProperties {
 

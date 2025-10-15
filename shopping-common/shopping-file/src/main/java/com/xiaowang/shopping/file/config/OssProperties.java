@@ -1,11 +1,13 @@
 package com.xiaowang.shopping.file.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * oss配置
  * @author cola
  */
+@Component
 @ConfigurationProperties(prefix = OssProperties.PREFIX)
 public class OssProperties {
     public static final String PREFIX = "spring.oss";
@@ -17,6 +19,11 @@ public class OssProperties {
     private String accessKey;
 
     private String accessSecret;
+
+    /**
+     * OSS文件访问的基础URL
+     */
+    private String baseUrl;
 
     public String getBucket() {
         return bucket;
@@ -48,5 +55,13 @@ public class OssProperties {
 
     public void setAccessSecret(String accessSecret) {
         this.accessSecret = accessSecret;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 }

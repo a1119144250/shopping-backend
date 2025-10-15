@@ -6,6 +6,11 @@ spring:
     name: @application.name@
   config:
     import: classpath:base.yml,classpath:datasource.yml,classpath:cache.yml,classpath:rpc.yml,classpath:sa-token.yml
+  # 实名认证配置（阿里云身份证实名认证API）
+  auth:
+    host: https://dfidveri.market.alicloudapi.com
+    path: /verify_id_name
+    appcode: your-appcode-here
 
 # 微信小程序配置
 wx:

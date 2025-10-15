@@ -1,11 +1,13 @@
 package com.xiaowang.shopping.sms.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * 短信配置
  * @author cola
  */
+@Component
 @ConfigurationProperties(prefix = SmsProperties.PREFIX)
 public class SmsProperties {
     public static final String PREFIX = "spring.sms";
