@@ -26,10 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Base64;
-import java.util.List;
 
+import static com.xiaowang.shopping.base.constant.Constant.*;
 import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.USER_NOT_EXIST;
 import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.USER_UPLOAD_PICTURE_FAIL;
 
@@ -45,16 +44,6 @@ import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.
 public class UserController {
 
   private final UserService userService;
-
-  /**
-   * 允许上传的图片格式
-   */
-  private static final List<String> ALLOWED_IMAGE_TYPES = Arrays.asList("jpg", "jpeg", "png", "gif");
-
-  /**
-   * 最大文件大小（5MB）
-   */
-  private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
 
   /**
    * 用户注册
@@ -92,27 +81,27 @@ public class UserController {
     User user;
 
     // 根据登录类型选择不同的登录方式
-    if ("account".equals(request.getLoginType())) {
+    if (LoginType.ACCOUNT.equals(request.getLoginType())) {
       // 账号密码登录
       if (StringUtils.isBlank(request.getUsername()) || StringUtils.isBlank(request.getPassword())) {
-        return Result.error("PARAM_ERROR", "用户名和密码不能为空");
+        return Result.error(ErrorCode.PARAM_ERROR, "用户名和密码不能为空");
       }
       user = userService.loginByUsername(request.getUsername(), request.getPassword());
-    } else if ("wechat".equals(request.getLoginType())) {
+    } else if (LoginType.WECHAT.equals(request.getLoginType())) {
       // 微信登录
       if (StringUtils.isBlank(request.getCode())) {
-        return Result.error("PARAM_ERROR", "微信登录code不能为空");
+        return Result.error(ErrorCode.PARAM_ERROR, "微信登录code不能为空");
       }
       user = userService.wxLogin(
           request.getCode(),
-          request.getUserInfo() != null ? request.getUserInfo().getNickName() : "微信用户",
+          request.getUserInfo() != null ? request.getUserInfo().getNickName() : UserDefaults.DEFAULT_WECHAT_NICK_NAME,
           request.getUserInfo() != null ? request.getUserInfo().getAvatarUrl() : "",
-          request.getUserInfo() != null ? request.getUserInfo().getGender() : 0,
+          request.getUserInfo() != null ? request.getUserInfo().getGender() : UserDefaults.DEFAULT_GENDER,
           request.getUserInfo() != null ? request.getUserInfo().getCity() : "",
           request.getUserInfo() != null ? request.getUserInfo().getProvince() : "",
           request.getUserInfo() != null ? request.getUserInfo().getCountry() : "");
     } else {
-      return Result.error("PARAM_ERROR", "不支持的登录类型");
+      return Result.error(ErrorCode.PARAM_ERROR, "不支持的登录类型");
     }
 
     // 登录成功，创建token
@@ -179,23 +168,23 @@ public class UserController {
 
     // 2. 验证文件是否为空
     if (file == null || file.isEmpty()) {
-      return Result.error("FILE_EMPTY", "上传文件不能为空");
+      return Result.error(ErrorCode.FILE_EMPTY, "上传文件不能为空");
     }
 
     // 3. 验证文件大小
-    if (file.getSize() > MAX_FILE_SIZE) {
-      return Result.error("FILE_TOO_LARGE", "文件大小不能超过5MB");
+    if (file.getSize() > FileUpload.MAX_FILE_SIZE) {
+      return Result.error(ErrorCode.FILE_TOO_LARGE, "文件大小不能超过5MB");
     }
 
     // 4. 验证文件格式
     String originalFilename = file.getOriginalFilename();
     if (originalFilename == null || originalFilename.isEmpty()) {
-      return Result.error("FILE_NAME_ERROR", "文件名不能为空");
+      return Result.error(ErrorCode.FILE_NAME_ERROR, "文件名不能为空");
     }
 
     String fileExtension = getFileExtension(originalFilename).toLowerCase();
-    if (!ALLOWED_IMAGE_TYPES.contains(fileExtension)) {
-      return Result.error("FILE_TYPE_ERROR", "仅支持jpg、jpeg、png、gif格式的图片");
+    if (!FileUpload.ALLOWED_IMAGE_TYPES.contains(fileExtension)) {
+      return Result.error(ErrorCode.FILE_TYPE_ERROR, "仅支持jpg、jpeg、png、gif格式的图片");
     }
 
     try {
@@ -207,7 +196,7 @@ public class UserController {
       String base64Data = Base64.getEncoder().encodeToString(fileBytes);
 
       // 7. 构建完整的Data URL (格式: data:image/png;base64,iVBORw0KG...)
-      String avatarUrl = "data:" + mimeType + ";base64," + base64Data;
+      String avatarUrl = DataUrl.PREFIX + mimeType + DataUrl.BASE64_SEPARATOR + base64Data;
 
       // 8. 更新用户头像URL
       userService.updateProfile(
@@ -222,7 +211,7 @@ public class UserController {
       AvatarUploadResponse response = new AvatarUploadResponse();
       response.setAvatarUrl(avatarUrl);
 
-      log.info("用户上传头像成功, userId: {}, 图片大小: {}KB", userId, file.getSize() / 1024);
+      log.info("用户上传头像成功, userId: {}, 图片大小: {}KB", userId, file.getSize() / FileUpload.FILE_SIZE_KB);
       return Result.success(response);
 
     } catch (IOException e) {
@@ -247,15 +236,15 @@ public class UserController {
    */
   private String getContentType(String extension) {
     switch (extension.toLowerCase()) {
-      case "jpg":
-      case "jpeg":
-        return "image/jpeg";
-      case "png":
-        return "image/png";
-      case "gif":
-        return "image/gif";
+      case ImageExtension.JPG:
+      case ImageExtension.JPEG:
+        return ImageMimeType.JPEG;
+      case ImageExtension.PNG:
+        return ImageMimeType.PNG;
+      case ImageExtension.GIF:
+        return ImageMimeType.GIF;
       default:
-        return "image/jpeg";
+        return ImageMimeType.JPEG;
     }
   }
 

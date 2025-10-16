@@ -1,7 +1,6 @@
 package com.xiaowang.shopping.user.domain.service;
 
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import com.alicp.jetcache.Cache;
@@ -49,6 +48,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import static com.xiaowang.shopping.base.constant.Constant.*;
 import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.DUPLICATE_TELEPHONE_NUMBER;
 import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.NICK_NAME_EXIST;
 import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.USER_AUTH_FAIL;
@@ -65,8 +65,6 @@ import static com.xiaowang.shopping.user.infrastructure.exception.UserErrorCode.
  */
 @Service
 public class UserService extends ServiceImpl<UserMapper, User> implements InitializingBean {
-
-  private static final String DEFAULT_NICK_NAME_PREFIX = "藏家_";
 
   @Autowired
   private UserMapper userMapper;
@@ -116,15 +114,15 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
     idUserCache = cacheManager.getOrCreateCache(idQc);
   }
 
-  @DistributeLock(keyExpression = "#telephone", scene = "USER_REGISTER")
+  @DistributeLock(keyExpression = "#telephone", scene = LockScene.USER_REGISTER)
   @Transactional(rollbackFor = Exception.class)
   public UserOperatorResponse register(String telephone, String inviteCode) {
     String defaultNickName;
     String randomString;
     do {
-      randomString = RandomUtil.randomString(6).toUpperCase();
+      randomString = RandomUtil.randomString(UserDefaults.INVITE_CODE_LENGTH).toUpperCase();
       // 前缀 + 6位随机数 + 手机号后四位
-      defaultNickName = DEFAULT_NICK_NAME_PREFIX + randomString + telephone.substring(7, 11);
+      defaultNickName = UserDefaults.DEFAULT_NICK_NAME_PREFIX + randomString + telephone.substring(7, 11);
     } while (nickNameExist(defaultNickName) || inviteCodeExist(randomString));
 
     String inviterId = null;
@@ -156,7 +154,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
    * @param password
    * @return
    */
-  @DistributeLock(keyExpression = "#telephone", scene = "USER_REGISTER")
+  @DistributeLock(keyExpression = "#telephone", scene = LockScene.USER_REGISTER)
   @Transactional(rollbackFor = Exception.class)
   public UserOperatorResponse registerAdmin(String telephone, String password) {
     User user = registerAdmin(telephone, telephone, password);
@@ -426,7 +424,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
    * @param inviteCode 邀请码
    * @return
    */
-  @DistributeLock(keyExpression = "#username", scene = "USER_REGISTER")
+  @DistributeLock(keyExpression = "#username", scene = LockScene.USER_REGISTER)
   @Transactional(rollbackFor = Exception.class)
   public User registerByUsername(String username, String password, String inviteCode) {
     // 检查用户名是否已存在
@@ -437,7 +435,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
     // 生成邀请码
     String randomString;
     do {
-      randomString = RandomUtil.randomString(6).toUpperCase();
+      randomString = RandomUtil.randomString(UserDefaults.INVITE_CODE_LENGTH).toUpperCase();
     } while (inviteCodeExist(randomString));
 
     // 处理邀请人ID
