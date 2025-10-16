@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xiaowang.shopping.user.infrastructure.mapper.AddressMapper">
+    <resultMap id="BaseResultMap" type="com.xiaowang.shopping.user.domain.entity.Address">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="region" column="region"/>
+        <result property="detail" column="detail"/>
+        <result property="tag" column="tag"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="findByUserId" resultMap="BaseResultMap">
+        SELECT * FROM address
+        WHERE is_deleted = 0
+        AND user_id = #{userId}
+        ORDER BY is_default DESC, update_time DESC
+    </select>
+</mapper>
+

@@ -24,4 +24,4 @@ spring:
         - id: shopping-user
           uri: lb://shopping-user
           predicates:
-            - Path=/trade/**,/order/**,/user/**,/collection/**,/wxPay/**,/box/**
+            - Path=/trade/**,/order/**,/user/**,/collection/**,/wxPay/**,/box/**,/address/**
