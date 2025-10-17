@@ -91,8 +91,17 @@ public class ProductConvertor {
         }
 
         try {
+            // 尝试作为JSON数组解析
             return objectMapper.readValue(json, new TypeReference<List<String>>() {});
         } catch (Exception e) {
+            // 如果解析失败,检查是否是单个URL字符串
+            String trimmed = json.trim();
+            if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+                // 将单个URL字符串包装成列表
+                log.debug("将单个URL字符串转换为列表: {}", trimmed);
+                return Collections.singletonList(trimmed);
+            }
+            
             log.error("解析JSON失败: {}", json, e);
             return Collections.emptyList();
         }

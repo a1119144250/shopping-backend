@@ -360,7 +360,7 @@ public class UserService extends ServiceImpl<UserMapper, User> implements Initia
    */
   public User findByUsernameAndPass(String username, String password) {
     // 先通过用户名查找用户
-    User user = userMapper.findByNickname(username);
+    User user = userMapper.findByUserName(username);
     if (user != null && user.getPasswordHash() != null) {
       // 验证密码
       String inputPasswordHash = DigestUtil.md5Hex(password);

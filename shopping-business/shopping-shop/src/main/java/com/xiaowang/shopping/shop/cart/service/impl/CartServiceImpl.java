@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.xiaowang.shopping.shop.cart.domain.entity.CartItem;
 import com.xiaowang.shopping.shop.cart.domain.service.CartService;
 import com.xiaowang.shopping.shop.cart.infrastructure.mapper.CartItemMapper;
+import com.xiaowang.shopping.shop.cart.vo.CartItemVO;
 import com.xiaowang.shopping.shop.infrastructure.exception.ShopErrorCode;
 import com.xiaowang.shopping.shop.infrastructure.exception.ShopException;
 import com.xiaowang.shopping.shop.product.domain.entity.Product;
@@ -34,12 +35,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartItem addItemWithResult(Long userId, Long productId, Integer quantity) {
+    public CartItem addItemWithResult(Long userId, Long productId, Integer count) {
         // 获取商品信息
         Product product = productService.getById(productId);
         
         // 检查商品库存
-        if (product.getStock() < quantity) {
+        if (product.getStock() < count) {
             throw new ShopException(ShopErrorCode.PRODUCT_STOCK_INSUFFICIENT);
         }
         
@@ -51,7 +52,7 @@ public class CartServiceImpl implements CartService {
         
         if (existItem != null) {
             // 更新数量
-            existItem.setQuantity(existItem.getQuantity() + quantity);
+            existItem.setCount(existItem.getCount() + count);
             cartItemMapper.updateById(existItem);
             return existItem;
         } else {
@@ -62,7 +63,7 @@ public class CartServiceImpl implements CartService {
             cartItem.setProductName(product.getName());
             cartItem.setProductImage(product.getMainImage());
             cartItem.setProductPrice(product.getPrice());
-            cartItem.setQuantity(quantity);
+            cartItem.setCount(count);
             cartItem.setSelected(1);
             cartItemMapper.insert(cartItem);
             return cartItem;
@@ -80,7 +81,7 @@ public class CartServiceImpl implements CartService {
             if (product.getStock() < quantity) {
                 throw new ShopException(ShopErrorCode.PRODUCT_STOCK_INSUFFICIENT);
             }
-            cartItem.setQuantity(quantity);
+            cartItem.setCount(quantity);
         }
         
         // 更新选中状态
@@ -97,16 +98,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateQuantity(Long userId, Long cartItemId, Integer quantity) {
+    public void updateQuantity(Long userId, Long cartItemId, Integer count) {
         CartItem cartItem = getCartItem(userId, cartItemId);
         
         // 检查库存
         Product product = productService.getById(cartItem.getProductId());
-        if (product.getStock() < quantity) {
+        if (product.getStock() < count) {
             throw new ShopException(ShopErrorCode.PRODUCT_STOCK_INSUFFICIENT);
         }
         
-        cartItem.setQuantity(quantity);
+        cartItem.setCount(count);
         cartItemMapper.updateById(cartItem);
     }
 
@@ -169,7 +170,31 @@ public class CartServiceImpl implements CartService {
         wrapper.eq(CartItem::getUserId, userId)
                 .eq(CartItem::getSelected, 1)
                 .orderByDesc(CartItem::getCreateTime);
-        return cartItemMapper.selectList(wrapper);
+        List<CartItem> cartItems = cartItemMapper.selectList(wrapper);
+        
+        // 填充商品信息（这些字段不存储在数据库，但需要在内存中使用）
+        for (CartItem item : cartItems) {
+            try {
+                Product product = productService.getById(item.getProductId());
+                item.setProductName(product.getName());
+                item.setProductImage(product.getMainImage());
+                item.setProductPrice(product.getPrice());
+            } catch (Exception e) {
+                log.warn("获取商品信息失败, productId: {}", item.getProductId(), e);
+            }
+        }
+        
+        return cartItems;
+    }
+
+    @Override
+    public List<CartItemVO> listByUserIdWithProduct(Long userId) {
+        return cartItemMapper.listByUserIdWithProduct(userId);
+    }
+
+    @Override
+    public List<CartItemVO> getSelectedItemsWithProduct(Long userId) {
+        return cartItemMapper.listSelectedByUserIdWithProduct(userId);
     }
 
     private CartItem getCartItem(Long userId, Long cartItemId) {

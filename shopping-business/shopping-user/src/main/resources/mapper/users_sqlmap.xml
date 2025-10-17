@@ -46,6 +46,13 @@
           AND nick_name = #{nickName}
     </select>
 
+    <select id="findByUserName" resultMap="BaseResultMap">
+        SELECT *
+        FROM users
+        WHERE deleted = 0
+          AND user_name = #{userName}
+    </select>
+
     <select id="findByInviteCode" resultMap="BaseResultMap">select * from users where deleted=0
         <if test="inviteCode!=null">AND invite_code = #{inviteCode}</if>
     </select>

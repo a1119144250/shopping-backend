@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
         BigDecimal totalAmount = BigDecimal.ZERO;
         for (CartItem cartItem : cartItems) {
             BigDecimal itemTotal = cartItem.getProductPrice()
-                    .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
+                    .multiply(BigDecimal.valueOf(cartItem.getCount()));
             totalAmount = totalAmount.add(itemTotal);
         }
 
@@ -87,13 +87,13 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setProductName(cartItem.getProductName());
             orderItem.setProductImage(cartItem.getProductImage());
             orderItem.setProductPrice(cartItem.getProductPrice());
-            orderItem.setQuantity(cartItem.getQuantity());
+            orderItem.setQuantity(cartItem.getCount());
             orderItem.setTotalAmount(cartItem.getProductPrice()
-                    .multiply(BigDecimal.valueOf(cartItem.getQuantity())));
+                    .multiply(BigDecimal.valueOf(cartItem.getCount())));
             orderItemMapper.insert(orderItem);
 
             // 扣减库存
-            boolean success = productService.deductStock(cartItem.getProductId(), cartItem.getQuantity());
+            boolean success = productService.deductStock(cartItem.getProductId(), cartItem.getCount());
             if (!success) {
                 throw new ShopException("商品【" + cartItem.getProductName() + "】库存不足",
                         ShopErrorCode.PRODUCT_STOCK_INSUFFICIENT);

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author xiaowang
  */
 @Data
-@TableName("cart_item")
+@TableName("cart")
 public class CartItem {
 
     /**
@@ -32,24 +32,27 @@ public class CartItem {
     private Long productId;
 
     /**
-     * 商品名称（冗余字段）
+     * 商品名称（冗余字段，不存储在数据库）
      */
+    @TableField(exist = false)
     private String productName;
 
     /**
-     * 商品主图（冗余字段）
+     * 商品主图（冗余字段，不存储在数据库）
      */
+    @TableField(exist = false)
     private String productImage;
 
     /**
-     * 商品价格（冗余字段）
+     * 商品价格（冗余字段，不存储在数据库）
      */
+    @TableField(exist = false)
     private BigDecimal productPrice;
 
     /**
      * 数量
      */
-    private Integer quantity;
+    private Integer count;
 
     /**
      * 是否选中：0-未选中，1-选中

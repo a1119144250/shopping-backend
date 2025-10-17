@@ -41,28 +41,8 @@ public class CartApiController {
     public Result<List<CartItemVO>> getCart() {
         Long userId = getUserId();
         
-        // 查询购物车列表
-        List<CartItem> cartItems = cartService.listByUserId(userId);
-        
-        // 获取所有商品信息
-        Map<Long, Product> productMap = new HashMap<>();
-        for (CartItem item : cartItems) {
-            try {
-                Product product = productService.getById(item.getProductId());
-                productMap.put(item.getProductId(), product);
-            } catch (Exception e) {
-                log.warn("商品不存在或已删除, productId: {}", item.getProductId());
-                productMap.put(item.getProductId(), null);
-            }
-        }
-        
-        // 转换为VO
-        List<CartItemVO> voList = cartItems.stream()
-                .map(item -> {
-                    Product product = productMap.get(item.getProductId());
-                    return CartConvertor.toCartItemVO(item, product);
-                })
-                .collect(Collectors.toList());
+        // 使用联表查询直接获取购物车列表及商品信息
+        List<CartItemVO> voList = cartService.listByUserIdWithProduct(userId);
         
         return Result.success(voList);
     }

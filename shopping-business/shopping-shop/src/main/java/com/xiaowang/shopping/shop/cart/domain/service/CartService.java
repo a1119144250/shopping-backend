@@ -1,6 +1,7 @@
 package com.xiaowang.shopping.shop.cart.domain.service;
 
 import com.xiaowang.shopping.shop.cart.domain.entity.CartItem;
+import com.xiaowang.shopping.shop.cart.vo.CartItemVO;
 
 import java.util.List;
 
@@ -57,6 +58,11 @@ public interface CartService {
     List<CartItem> listByUserId(Long userId);
 
     /**
+     * 获取用户购物车列表（联表查询商品信息）
+     */
+    List<CartItemVO> listByUserIdWithProduct(Long userId);
+
+    /**
      * 选中/取消选中购物车项
      */
     void toggleSelect(Long userId, Long cartItemId, Integer selected);
@@ -75,5 +81,10 @@ public interface CartService {
      * 获取选中的购物车项
      */
     List<CartItem> getSelectedItems(Long userId);
+    
+    /**
+     * 获取选中的购物车项（联表查询商品信息）
+     */
+    List<CartItemVO> getSelectedItemsWithProduct(Long userId);
 }
 

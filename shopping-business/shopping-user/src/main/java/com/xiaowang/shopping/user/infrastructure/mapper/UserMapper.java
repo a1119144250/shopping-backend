@@ -28,6 +28,14 @@ public interface UserMapper extends BaseMapper<User> {
     User findByNickname(@Param("nickName") @NotNull String nickname);
 
     /**
+     * 根据账号查询用户
+     * @param username
+     * @return
+     */
+    User findByUserName(@Param("userName") @NotNull String username);
+
+
+    /**
      * 根据邀请码查询用户
      * @param inviteCode
      * @return

@@ -32,7 +32,7 @@ public class CartConvertor {
         vo.setProductName(cartItem.getProductName());
         vo.setProductImage(cartItem.getProductImage());
         vo.setPrice(cartItem.getProductPrice());
-        vo.setCount(cartItem.getQuantity());
+        vo.setCount(cartItem.getCount());
         vo.setSelected(cartItem.getSelected() == 1);
         vo.setCreateTime(cartItem.getCreateTime() != null ? cartItem.getCreateTime().format(formatter) : null);
 
@@ -62,7 +62,7 @@ public class CartConvertor {
         AddCartResultVO vo = new AddCartResultVO();
         vo.setId(cartItem.getId());
         vo.setProductId(cartItem.getProductId());
-        vo.setCount(cartItem.getQuantity());
+        vo.setCount(cartItem.getCount());
 
         return vo;
     }
