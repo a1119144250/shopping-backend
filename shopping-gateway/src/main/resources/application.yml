@@ -6,6 +6,13 @@ spring:
     name: @application.name@
   config:
     import: classpath:base.yml,classpath:cache.yml,classpath:sa-token.yml,classpath:config.yml
+  autoconfigure:
+    exclude:
+      - org.apache.dubbo.spring.boot.autoconfigure.DubboAutoConfiguration
+      - org.apache.dubbo.spring.boot.autoconfigure.DubboRelaxedBinding2AutoConfiguration
+      - org.apache.dubbo.spring.boot.actuate.autoconfigure.DubboEndpointAutoConfiguration
+      - org.apache.dubbo.spring.boot.actuate.autoconfigure.DubboHealthIndicatorAutoConfiguration
+      - org.apache.dubbo.spring.boot.actuate.autoconfigure.DubboMetadataAutoConfiguration
   cloud:
     gateway:
       default-filters:
@@ -25,3 +32,23 @@ spring:
           uri: lb://shopping-user
           predicates:
             - Path=/trade/**,/order/**,/user/**,/collection/**,/wxPay/**,/box/**,/address/**
+
+# Gateway 不需要 Dubbo
+dubbo:
+  application:
+    qos-enable: false
+  registry:
+    address: ''
+  protocol:
+    name: dubbo
+    port: -1
+
+# 禁用 Dubbo 相关的 Actuator 端点
+management:
+  endpoints:
+    web:
+      exposure:
+        exclude: dubbo,dubbo-*
+  health:
+    dubbo:
+      enabled: false

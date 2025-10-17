@@ -1,8 +1,10 @@
 package com.xiaowang.shopping.user.controller.convertor;
 
+import cn.hutool.core.date.DatePattern;
 import com.xiaowang.shopping.user.domain.entity.Address;
 import com.xiaowang.shopping.user.domain.resp.AddressVO;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
  * @author wangjin
  */
 public class AddressConvertor {
+
+  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DatePattern.NORM_DATETIME_PATTERN);
 
   /**
    * 将Address实体转换为AddressVO
@@ -32,8 +36,8 @@ public class AddressConvertor {
     addressVO.setDetail(address.getDetail());
     addressVO.setTag(address.getTag());
     addressVO.setIsDefault(address.getIsDefault() != null && address.getIsDefault() == 1);
-    addressVO.setCreateTime(address.getCreateTime());
-    addressVO.setUpdateTime(address.getUpdateTime());
+    addressVO.setCreateTime(address.getCreateTime() != null ? address.getCreateTime().format(formatter) : null);
+    addressVO.setUpdateTime(address.getUpdateTime() != null ? address.getUpdateTime().format(formatter) : null);
 
     return addressVO;
   }

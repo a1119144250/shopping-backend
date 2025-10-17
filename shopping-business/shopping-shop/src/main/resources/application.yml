@@ -1,0 +1,33 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: @application.name@
+  config:
+    import: classpath:base.yml,classpath:datasource.yml,classpath:cache.yml,classpath:rpc.yml,classpath:sa-token.yml,classpath:mq.yml
+  # Jackson时间格式配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+
+# MyBatis Plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql日志
+    map-underscore-to-camel-case: true # 将数据库字段的下划线命名转换为驼峰命名
+  mapper-locations: classpath*:mapper/**/*_sqlmap.xml
+
+# 商城业务配置
+shop:
+  # 订单超时时间（分钟）
+  order:
+    timeout: 30
+    auto-cancel: true
+  # 购物车配置
+  cart:
+    max-items: 99
+    expire-days: 30
+

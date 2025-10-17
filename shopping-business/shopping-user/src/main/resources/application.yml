@@ -11,6 +11,12 @@ spring:
     host: https://dfidveri.market.alicloudapi.com
     path: /verify_id_name
     appcode: your-appcode-here
+  # Jackson时间格式配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
 
 # 微信小程序配置
 wx:

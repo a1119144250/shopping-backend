@@ -19,7 +19,7 @@
     </properties>
 
     <modules>
-        <module>shopping-app</module>
         <module>shopping-user</module>
+        <module>shopping-shop</module>
     </modules>
 </project>

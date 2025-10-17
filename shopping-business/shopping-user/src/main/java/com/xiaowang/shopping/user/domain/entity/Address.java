@@ -1,10 +1,9 @@
 package com.xiaowang.shopping.user.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 收货地址实体
@@ -56,14 +55,16 @@ public class Address {
   private Integer isDefault;
 
   /**
-   * 创建时间（时间戳，毫秒）
+   * 创建时间
    */
-  private Long createTime;
+  @TableField(fill = FieldFill.INSERT)
+  private LocalDateTime createTime;
 
   /**
-   * 更新时间（时间戳，毫秒）
+   * 更新时间
    */
-  private Long updateTime;
+  @TableField(fill = FieldFill.INSERT_UPDATE)
+  private LocalDateTime updateTime;
 
   /**
    * 逻辑删除：0-未删除，1-已删除

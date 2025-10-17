@@ -121,6 +121,20 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 覆盖父 POM 的 skip 配置，允许打包 -->
+                    <skip>false</skip>
+                    <mainClass>com.xiaowang.shopping.user.ShoppingUserApplication</mainClass>
+                    <!-- 生成独立的可执行 jar，不替换原始 jar -->
+                    <classifier>exec</classifier>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

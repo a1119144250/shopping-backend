@@ -222,6 +222,12 @@
 
             <dependency>
                 <groupId>com.xiaowang</groupId>
+                <artifactId>shopping-shop</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xiaowang</groupId>
                 <artifactId>shopping-cache</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -567,6 +573,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 默认跳过 repackage，只有可执行的服务模块需要单独配置 -->
+                    <skip>true</skip>
+                </configuration>
             </plugin>
 
             <plugin>

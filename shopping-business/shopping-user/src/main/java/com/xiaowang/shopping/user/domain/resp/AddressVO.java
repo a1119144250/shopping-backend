@@ -45,12 +45,12 @@ public class AddressVO {
   private Boolean isDefault;
 
   /**
-   * 创建时间（时间戳，毫秒）
+   * 创建时间（yyyy-MM-dd HH:mm:ss）
    */
-  private Long createTime;
+  private String createTime;
 
   /**
-   * 更新时间（时间戳，毫秒）
+   * 更新时间（yyyy-MM-dd HH:mm:ss）
    */
-  private Long updateTime;
+  private String updateTime;
 }

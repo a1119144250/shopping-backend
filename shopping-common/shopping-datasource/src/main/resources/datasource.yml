@@ -27,4 +27,6 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true # 将数据库字段的下划线命名转换为驼峰命名
+    # 使用枚举名称而不是序号（数据库存储 ACTIVE 而不是 0）
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
   mapper-locations: classpath*:mapper/*.xml

@@ -91,10 +91,7 @@ public class AddressService {
     address.setTag(tag == null || tag.isEmpty() ? "家" : tag);
     address.setIsDefault(isDefault != null && isDefault ? 1 : 0);
 
-    // 设置时间戳（毫秒）
-    long currentTime = System.currentTimeMillis();
-    address.setCreateTime(currentTime);
-    address.setUpdateTime(currentTime);
+    // 时间字段由 MyBatis Plus 自动填充
 
     // 保存到数据库
     addressMapper.insert(address);
@@ -134,7 +131,7 @@ public class AddressService {
     existingAddress.setDetail(detail);
     existingAddress.setTag(tag == null || tag.isEmpty() ? "家" : tag);
     existingAddress.setIsDefault(isDefault != null && isDefault ? 1 : 0);
-    existingAddress.setUpdateTime(System.currentTimeMillis());
+    // updateTime 由 MyBatis Plus 自动填充
 
     // 保存到数据库
     addressMapper.updateById(existingAddress);
@@ -183,7 +180,7 @@ public class AddressService {
 
     // 设置当前地址为默认地址
     address.setIsDefault(1);
-    address.setUpdateTime(System.currentTimeMillis());
+    // updateTime 由 MyBatis Plus 自动填充
     addressMapper.updateById(address);
 
     log.info("设置默认地址成功, userId: {}, addressId: {}", userId, addressId);
@@ -199,8 +196,8 @@ public class AddressService {
     UpdateWrapper<Address> updateWrapper = new UpdateWrapper<>();
     updateWrapper.eq("user_id", userId)
         .eq("is_default", 1)
-        .set("is_default", 0)
-        .set("update_time", System.currentTimeMillis());
+        .set("is_default", 0);
+    // updateTime 由 MyBatis Plus 自动填充
 
     addressMapper.update(null, updateWrapper);
   }

@@ -114,20 +114,20 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <!--                    <skip>true</skip>-->
+                    <!-- 覆盖父 POM 的 skip 配置，允许打包 -->
+                    <skip>false</skip>
                     <mainClass>com.xiaowang.shopping.gateway.ShoppingGatewayApplication</mainClass>
+                    <!-- 生成独立的可执行 jar，不替换原始 jar -->
+                    <classifier>exec</classifier>
                 </configuration>
-
                 <executions>
                     <execution>
-                        <phase>package</phase>
                         <goals>
                             <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
