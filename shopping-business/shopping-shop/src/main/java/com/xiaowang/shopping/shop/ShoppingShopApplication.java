@@ -1,5 +1,6 @@
 package com.xiaowang.shopping.shop;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
     "com.xiaowang.shopping.rpc",
     "com.xiaowang.shopping.mq"
 })
+@MapperScan("com.xiaowang.shopping.shop.*.infrastructure.mapper")
 public class ShoppingShopApplication {
 
     public static void main(String[] args) {

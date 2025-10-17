@@ -15,64 +15,66 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * sa-token的全局配置
+ * 
  * @author cola
  */
 @Configuration
 // @Slf4j // 临时注释掉
 public class SaTokenConfigure {
 
-    @Bean
-    public SaReactorFilter getSaReactorFilter() {
-        return new SaReactorFilter()
-                // 拦截地址
-                .addInclude("/**")
-                // 开放地址
-                .addExclude("/favicon.ico")
-                // 鉴权方法：每次访问进入
-                .setAuth(obj -> {
-                    // 登录校验 -- 拦截所有路由，并排除/auth/login 用于开放登录
-                    SaRouter.match("/**")
-                            .notMatch("/auth/**", "/user/login", "/user/register", "/collection/collectionList",
-                                      "/collection/collectionInfo", "/wxPay/**")
-                            .check(r -> StpUtil.checkLogin());
+  @Bean
+  public SaReactorFilter getSaReactorFilter() {
+    return new SaReactorFilter()
+        // 拦截地址
+        .addInclude("/**")
+        // 开放地址
+        .addExclude("/favicon.ico")
+        // 鉴权方法：每次访问进入
+        .setAuth(obj -> {
+          // 登录校验 -- 拦截所有路由，并排除/auth/login 用于开放登录
+          SaRouter.match("/**")
+              .notMatch("/auth/**", "/user/login", "/user/register", "/collection/collectionList",
+                  "/collection/collectionInfo", "/wxPay/**", "/banners/**", "/categories/**",
+                  "/products/**")
+              .check(r -> StpUtil.checkLogin());
 
-                    // 权限认证 -- 不同模块, 校验不同权限
-                    // SaRouter.match("/admin/**", r -> StpUtil.checkRole(UserRole.ADMIN.name()));
-                    // SaRouter.match("/trade/**", r ->
-                    // StpUtil.checkPermission(UserPermission.AUTH.name()));
+          // 权限认证 -- 不同模块, 校验不同权限
+          // SaRouter.match("/admin/**", r -> StpUtil.checkRole(UserRole.ADMIN.name()));
+          // SaRouter.match("/trade/**", r ->
+          // StpUtil.checkPermission(UserPermission.AUTH.name()));
 
-                    // SaRouter.match("/user/**", r ->
-                    // StpUtil.checkPermissionOr(UserPermission.BASIC.name(),
-                    // UserPermission.FROZEN.name()));
-                    // SaRouter.match("/order/**", r ->
-                    // StpUtil.checkPermissionOr(UserPermission.BASIC.name(),UserPermission.FROZEN.name()));
-                })
-                // 异常处理方法：每次setAuth函数出现异常时进入
-                .setError(this::getSaResult);
+          // SaRouter.match("/user/**", r ->
+          // StpUtil.checkPermissionOr(UserPermission.BASIC.name(),
+          // UserPermission.FROZEN.name()));
+          // SaRouter.match("/order/**", r ->
+          // StpUtil.checkPermissionOr(UserPermission.BASIC.name(),UserPermission.FROZEN.name()));
+        })
+        // 异常处理方法：每次setAuth函数出现异常时进入
+        .setError(this::getSaResult);
+  }
+
+  private SaResult getSaResult(Throwable throwable) {
+    switch (throwable) {
+      case NotLoginException notLoginException:
+        System.err.println("请先登录"); // 临时替换 log.error
+        return SaResult.error("请先登录");
+      case NotRoleException notRoleException:
+        // if (UserRole.ADMIN.name().equals(notRoleException.getRole())) {
+        // System.err.println("请勿越权使用！");
+        // return SaResult.error("请勿越权使用！");
+        // }
+        System.err.println("您无权限进行此操作！");
+        return SaResult.error("您无权限进行此操作！");
+      case NotPermissionException notPermissionException:
+        // if
+        // (UserPermission.AUTH.name().equals(notPermissionException.getPermission())) {
+        // System.err.println("请先完成实名认证！");
+        // return SaResult.error("请先完成实名认证！");
+        // }
+        System.err.println("您无权限进行此操作！");
+        return SaResult.error("您无权限进行此操作！");
+      default:
+        return SaResult.error(throwable.getMessage());
     }
-
-    private SaResult getSaResult(Throwable throwable) {
-        switch (throwable) {
-            case NotLoginException notLoginException:
-                System.err.println("请先登录"); // 临时替换 log.error
-                return SaResult.error("请先登录");
-            case NotRoleException notRoleException:
-                // if (UserRole.ADMIN.name().equals(notRoleException.getRole())) {
-                // System.err.println("请勿越权使用！");
-                // return SaResult.error("请勿越权使用！");
-                // }
-                System.err.println("您无权限进行此操作！");
-                return SaResult.error("您无权限进行此操作！");
-            case NotPermissionException notPermissionException:
-                // if
-                // (UserPermission.AUTH.name().equals(notPermissionException.getPermission())) {
-                // System.err.println("请先完成实名认证！");
-                // return SaResult.error("请先完成实名认证！");
-                // }
-                System.err.println("您无权限进行此操作！");
-                return SaResult.error("您无权限进行此操作！");
-            default:
-                return SaResult.error(throwable.getMessage());
-        }
-    }
+  }
 }
